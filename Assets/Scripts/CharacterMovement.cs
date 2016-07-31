@@ -3,88 +3,123 @@ using System.Collections;
 
 public class CharacterMovement : MonoBehaviour 
 {
-    #region Data Members
-    private Rigidbody2D phys;
-    Touch touch;
-    Transform cachedTransform;
-    Vector3 startingPosition;
-    Collider2D col;
-    bool isMoving = false;
-    float _horizontalLimit = Screen.height, _verticalLimit = Screen.width;
+	#region Data Members
+	private Rigidbody2D phys;
+	Transform cachedTransform;
+	Vector3 startingPosition;
+	Collider2D col;
+	bool isMoving = false;
+	float _horizontalLimit = Screen.height, _verticalLimit = Screen.width;
 
-    [SerializeField]
-    float dragSpeed = 0.001f;
+	private bool isRotating = false;
+	private Vector2 startingTouchPosition_Screen;
+	private Vector2 startingTouchPosition_World;
 
-    #endregion
+	[SerializeField]
+	float dragSpeed = 0.001f;
 
-    #region Setters & Getters
+	#endregion
 
-    #endregion
+	#region Setters & Getters
 
-    #region Built-In Unity Methods
+	#endregion
 
-    #endregion
+	#region Built-In Unity Methods
 
-    #region Public Methods
+	#endregion
 
-    #endregion
+	#region Public Methods
 
-    #region Private Methods
+	#endregion
 
-    #endregion
+	#region Private Methods
 
-    #region Helper Classes/Structs
+	#endregion
 
-    #endregion
+	#region Helper Classes/Structs
+
+	#endregion
 	// Use this for initialization
 	void Start () 
-    {
-        //phys = GetComponent<Rigidbody2D>();
-        col = GetComponent<BoxCollider2D>();
-        cachedTransform = transform;
-        startingPosition = cachedTransform.position;
+	{
+		//phys = GetComponent<Rigidbody2D>();
+		col = GetComponent<BoxCollider2D>();
+		cachedTransform = transform;
+		startingPosition = cachedTransform.position;
 	}
-	
+
 	// Update is called once per frame
 	void Update () 
-    {
-        if (Input.touchCount > 0)
-        {            
-            Vector2 deltaPosition = Input.GetTouch(0).deltaPosition;
+	{
+		if (Input.touchCount > 0)
+		{            
+			Vector2 deltaPosition = Input.GetTouch(0).deltaPosition;
 
-            switch (Input.GetTouch(0).phase)
-            {
-                case TouchPhase.Began:
-                    if (Input.touchCount == 1)
-                    {
-                        Vector3 wp = Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);
-                        Vector2 touchPosition = new Vector2(wp.x, wp.y);
+			switch (Input.GetTouch(0).phase)
+			{
+			case TouchPhase.Began:
 
-                        if (col == Physics2D.OverlapPoint(touchPosition))
-                        {
-                            isMoving = true;
-                        }
-                    }
-                    break;
-                case TouchPhase.Moved:
-                    if (isMoving && Input.touchCount == 1)
-                    {
-                        DragObject(deltaPosition);
-                    }
-                    break;
-                case TouchPhase.Ended:
-                    isMoving = false;
-                    break;
-            }
-        }
+				if (Input.touchCount == 1)
+				{
+					startingTouchPosition_Screen = Input.GetTouch(0).position;
+					startingTouchPosition_World = Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);
+
+					if (col == Physics2D.OverlapPoint(startingTouchPosition_World))
+					{
+						isMoving = true;
+					}
+				}
+
+				if(Input.touchCount == 2)
+				{
+					isMoving = false;
+				}
+
+				break;
+
+			case TouchPhase.Moved:
+
+				if (isMoving && Input.touchCount == 1)
+				{
+					DragObject(deltaPosition);
+				}
+
+				if(!isMoving && Input.touchCount == 2)
+				{
+					Vector2 newTouchPosition = Input.GetTouch(1).position;
+					RotateObject(startingTouchPosition_Screen, newTouchPosition);
+					startingTouchPosition_Screen = newTouchPosition;
+				}
+
+				break;
+
+			case TouchPhase.Ended:
+
+				isMoving = false;
+
+				break;
+			}
+		}
 	}
 
-    void DragObject(Vector2 deltaPosition)
-    {
-        cachedTransform.position = new Vector3(Mathf.Clamp((deltaPosition.x * dragSpeed) + cachedTransform.position.x, 
-                startingPosition.x - _horizontalLimit, startingPosition.x + _horizontalLimit),
-            Mathf.Clamp((deltaPosition.y * dragSpeed) + cachedTransform.position.y,
-                startingPosition.y - _verticalLimit, startingPosition.y + _verticalLimit),
-            cachedTransform.position.z);        
-    }
+	private void DragObject(Vector2 deltaPosition)
+	{
+		cachedTransform.position = new Vector3(Mathf.Clamp((deltaPosition.x * dragSpeed) + cachedTransform.position.x, 
+			startingPosition.x - _horizontalLimit, startingPosition.x + _horizontalLimit),
+			Mathf.Clamp((deltaPosition.y * dragSpeed) + cachedTransform.position.y,
+				startingPosition.y - _verticalLimit, startingPosition.y + _verticalLimit),
+			cachedTransform.position.z);        
+	}
+
+	private void RotateObject(Vector2 start, Vector2 end)
+	{
+		if(end.y > start.y)
+		{
+			gameObject.transform.Rotate(Vector3.forward, -10.0f);
+		}
+		else if(end.y < start.y)
+		{
+			gameObject.transform.Rotate(Vector3.forward, 10.0f);
+		}
+	}
 }
