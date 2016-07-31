@@ -73,7 +73,6 @@ public class CharacterMovement : MonoBehaviour
 				if(Input.touchCount == 2 && isMoving)
 				{
 					isRotating = true;
-					isMoving = false;
 				}
 
 				break;
@@ -85,7 +84,7 @@ public class CharacterMovement : MonoBehaviour
 					DragObject(deltaPosition);
 				}
 
-				if(!isMoving && isRotating && Input.touchCount == 2)
+				if(isMoving && isRotating && Input.touchCount == 2)
 				{
 					Vector2 newTouchPosition = Input.GetTouch(1).position;
 					RotateObject(startingTouchPosition_Screen, newTouchPosition);
