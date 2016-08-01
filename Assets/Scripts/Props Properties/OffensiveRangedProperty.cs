@@ -11,6 +11,8 @@ public class OffensiveRangedProperty : MonoBehaviour
 
 	private Collider objCollider;
 	private Rigidbody physics;
+
+	[SerializeField]
 	private Vector3 direction;
 	private float stayAliveDistance = 0.0f;
 	private float stayAliveTimer = 0.0f;
