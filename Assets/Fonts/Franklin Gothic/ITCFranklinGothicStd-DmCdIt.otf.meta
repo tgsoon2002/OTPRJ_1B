@@ -1,0 +1,32 @@
+fileFormatVersion: 2
+guid: ab0a0c38396567240b3bdf3b4e4b705e
+timeCreated: 1470714705
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - ITC Franklin Gothic Std
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 03482712237220b419f22fd701d0d717, type: 3}
+  - {fileID: 12800000, guid: 2c93a482d92d78545b7eba83039cf51e, type: 3}
+  - {fileID: 12800000, guid: 53dd6682da60b6041a67fc00c5f729f2, type: 3}
+  - {fileID: 12800000, guid: 9972fd65ee9fda84d9e213872311d07b, type: 3}
+  - {fileID: 12800000, guid: 8cae3995f27c69f43a059b049d93cfa6, type: 3}
+  - {fileID: 12800000, guid: 860b4e957cb54494ab1357a51c1c4d8c, type: 3}
+  - {fileID: 12800000, guid: 11ce7617d90de9c43a1644c171ad27bb, type: 3}
+  - {fileID: 12800000, guid: 49c0a8b879eb196468899216fbf38ba3, type: 3}
+  - {fileID: 12800000, guid: 46dbafb8d43b1a743826b3c024e57954, type: 3}
+  - {fileID: 12800000, guid: 731f1eb9e2175de419edf5db46e01879, type: 3}
+  - {fileID: 12800000, guid: 5668a67b54a295344aa1591f272087a3, type: 3}
+  - {fileID: 12800000, guid: 6b0e7bbe2e21e2e4cb7a6c315c313802, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
