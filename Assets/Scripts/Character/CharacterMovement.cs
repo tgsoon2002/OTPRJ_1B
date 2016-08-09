@@ -4,14 +4,12 @@ using System.Collections;
 public class CharacterMovement : MonoBehaviour 
 {
 	#region Data Members
-	private Rigidbody2D phys;
 	Transform cachedTransform;
 	Vector3 startingPosition;
 	Collider2D col;
 	
 	float _horizontalLimit = Screen.height, _verticalLimit = Screen.width;
 
-	
 	private Vector2 startingTouchPosition_Screen;
 	private Vector2 startingTouchPosition_World;
 
