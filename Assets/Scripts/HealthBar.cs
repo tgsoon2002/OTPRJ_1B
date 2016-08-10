@@ -2,21 +2,18 @@
 using UnityEngine.UI;
 using System.Collections;
 
-public class HealthBar : MonoBehaviour {
+public class HealthBar : MonoBehaviour
+{
 
-    public float maxHp;
-    public float currentHp;
-    public Image healthBar;
+	private float barValue;
 
-	// Use this for initialization
-	void Start () {
-	
+	public float BarValue {
+		get{ return  barValue; }
+		set {
+			barValue = value;
+			this.GetComponent<SpriteRenderer> ().material.SetFloat ("_Cutoff", 1 - barValue);
+		}
 	}
-	
-	// Update is called once per frame
-	void Update () 
-    {
-        healthBar.fillAmount = (currentHp / maxHp) / 2;
 
-	}
+
 }
