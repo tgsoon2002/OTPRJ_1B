@@ -13,19 +13,23 @@ public class SkillManager : MonoBehaviour
 	public Material after;
 
 	public int skillActiveID;
-
+	public Transform skillContainer;
 	public SkillSet[] skillSetA;
 	public SkillNode endNode;
 	public SkillNode nextNode;
 	public bool close = false;
+	public SkillSet currentSet;
 	// Use this for initialization
 	void Start ()
 	{
 		if (skillSetA [skillActiveID] != null) {
 			GameObject temp = Instantiate (skillSetA [skillActiveID].gameObject);
+			temp.transform.SetParent (skillContainer);
+			currentSet = temp.GetComponent<SkillSet> ();
 			skillSetA [skillActiveID].gameObject.SetActive (true);
 			nextNode = temp.GetComponent<SkillSet> ().startNode;
 			endNode = temp.GetComponent<SkillSet> ().endNode;
+			temp.transform.localPosition = Vector3.zero;
 		}
 
 	}
@@ -33,7 +37,14 @@ public class SkillManager : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
+		
+		if (Input.GetMouseButtonDown (0)) {
+			GetComponent<TrailRenderer> ().Clear ();
+
+		}
+			
 		if (Input.GetMouseButton (0)) {
+			
 			drawing = true;
 			transform.position = cam.ScreenToWorldPoint (new Vector3 (Input.mousePosition.x, Input.mousePosition.y, 2f));
 			ray = cam.ScreenPointToRay (new Vector3 (Input.mousePosition.x, Input.mousePosition.y, 5f));
@@ -44,8 +55,9 @@ public class SkillManager : MonoBehaviour
 						hit.collider.GetComponent<MeshRenderer> ().material = after;
 						nextNode = hit.collider.GetComponent<SkillNode> ().nexNode;
 					} else if (hit.collider.GetComponent<SkillNode> () == nextNode && nextNode == endNode) {
-						Debug.Log ("Finish skill");
-						close = true;
+						
+						ActiveSkillSuccess ();
+
 						hit.collider.GetComponent<MeshRenderer> ().material = after;
 					}
 
@@ -54,8 +66,23 @@ public class SkillManager : MonoBehaviour
 		}
 		if (Input.GetMouseButtonUp (0) && drawing == true) {
 			if (!close) {
-				Debug.Log ("Fail skill");
+				ActiveSkillFail ();
+
 			}
 		}
+	}
+
+	void ActiveSkillSuccess ()
+	{
+		GetComponent<TrailRenderer> ().Clear ();
+		close = true;
+		Debug.Log ("Finish skill");
+	}
+
+	void ActiveSkillFail ()
+	{
+		currentSet.GetComponent<SkillSet> ().ResetSkill (before);
+		GetComponent<TrailRenderer> ().Clear ();
+		Debug.Log ("Fail skill");
 	}
 }

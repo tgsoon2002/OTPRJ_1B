@@ -7,11 +7,13 @@ public class UICombatManager : MonoBehaviour
 
 	GameObject activeBtn;
 	GameObject itemPanel;
-	GameObject skillPanel;
+	public GameObject SkillPatten;
 	GameObject pauseBtn;
+	GameObject cutScene;
 	public Sprite itemBtnTexture;
 	public Sprite skillBtnTexture;
 	public bool itemMode = true;
+
 
 	static UICombatManager _instance;
 
@@ -45,7 +47,7 @@ public class UICombatManager : MonoBehaviour
 	{
 		activeBtn = transform.GetChild (0).gameObject;
 		itemPanel = transform.GetChild (1).gameObject;
-		skillPanel = transform.GetChild (2).gameObject;
+		cutScene = transform.GetChild (2).gameObject;
 		pauseBtn = transform.GetChild (3).gameObject;
 		_ResumeBattle ();
 	}
@@ -74,7 +76,7 @@ public class UICombatManager : MonoBehaviour
 	{
 		activeBtn.SetActive (true);
 		itemPanel.SetActive (false);
-		skillPanel.SetActive (false);
+		SkillPatten.SetActive (false);
 		pauseBtn.SetActive (false);
 	}
 
@@ -83,10 +85,10 @@ public class UICombatManager : MonoBehaviour
 		activeBtn.SetActive (false);
 		if (itemMode) {
 			itemPanel.SetActive (true);
-			skillPanel.SetActive (false);	
+			SkillPatten.SetActive (false);	
 		} else {
 			itemPanel.SetActive (false);
-			skillPanel.SetActive (true);
+			SkillPatten.SetActive (true);
 		}
 		pauseBtn.SetActive (true);
 	}
@@ -100,13 +102,13 @@ public class UICombatManager : MonoBehaviour
 
 	public GameObject StartCutScene ()
 	{
-		transform.GetChild (4).gameObject.SetActive (true);
-		return transform.GetChild (4).gameObject;
+		cutScene.SetActive (true);
+		return cutScene;
 	}
 
 	public void EndCutScene ()
 	{
-		transform.GetChild (4).gameObject.SetActive (false);
+		cutScene.SetActive (false);
 	}
 
 }
