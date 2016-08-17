@@ -22,4 +22,10 @@ public interface ICharacterStats
 		get;
 		set;
 	}
+
+	float Move_Speed
+	{
+		get;
+		set;
+	}
 }

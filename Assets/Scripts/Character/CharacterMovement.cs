@@ -4,6 +4,7 @@ using System.Collections;
 public class CharacterMovement : MonoBehaviour 
 {
 	#region Data Members
+
 	private Rigidbody2D phys;
 	Transform cachedTransform;
 	Vector3 startingPosition;
@@ -68,12 +69,15 @@ public class CharacterMovement : MonoBehaviour
 					{
 						isMoving = true;
 					}
-				}
 
+				}
+				
 				if(Input.touchCount == 2 && isMoving)
 				{
 					isRotating = true;
 				}
+
+				
 
 				break;
 
@@ -122,4 +126,5 @@ public class CharacterMovement : MonoBehaviour
 			gameObject.transform.Rotate(Vector3.forward, 10.0f);
 		}
 	}
+			
 }
