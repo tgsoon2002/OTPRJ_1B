@@ -178,22 +178,20 @@ public class CharacterTouchControlsManager : MonoBehaviour
 
 	private void PlayerDash(GameObject playerRef, Touch input, Ray ray)
 	{
-		if(input.tapCount == 2)
+		if(Physics.Raycast(ray, out hit))
 		{
-			if(Physics.Raycast(ray, out hit))
+			if(hit.collider.tag == "Player")
 			{
-				if(hit.collider.tag == "Player")
-				{
-					playerObj.GetComponent<ICharacterProperties>().SelectCharacter();
-				}
+				playerObj.GetComponent<ICharacterProperties>().SelectCharacter();
 			}
 		}
+
 	}
 		
-	private IEnumerator AndroidTouchTapHandler()
-	{
-		
-	}
+//	private IEnumerator AndroidTouchTapHandler()
+//	{
+//		
+//	}
 
 	#endregion
 }
