@@ -116,12 +116,7 @@ public class CharacterCommand : MonoBehaviour
 
 			SetCharacterFocus(isHit);
 			DeselectCharacterFocus(isHit);
-
-			if(gameObject.GetComponent<ICharacterProperties>().Character_Class_Type == CharacterClassType.MELEE)
-			{
-				MeleeAttack(isHit);
-			}
-				
+							
 			break;
 
 		case 1:
@@ -243,6 +238,7 @@ public class CharacterCommand : MonoBehaviour
 	/// Meelee attack functionality implemented here.
 	/// </summary>
 	/// <param name="_hit">If set to <c>true</c> hit.</param>
+	/// DEPRECATED
 	private void MeleeAttack(bool _hit)
 	{
 		//Declaring local variables

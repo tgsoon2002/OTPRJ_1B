@@ -18,7 +18,7 @@ public class FloatingDamageText : MonoBehaviour
 	#region Built-in Unity Methods
 
 	// Use this for initialization
-	void Start () 
+	void OnEnable () 
 	{
 		AnimatorClipInfo[] clip = anim.GetCurrentAnimatorClipInfo(0);
 		Destroy(gameObject, clip[0].clip.length);
@@ -34,7 +34,7 @@ public class FloatingDamageText : MonoBehaviour
 		//Declaring local variables
 		int _val = (int)val;
 
-		damageText.text = _val.ToString();
+		anim.GetComponent<Text>().text = _val.ToString();
 	}
 
 	#endregion
