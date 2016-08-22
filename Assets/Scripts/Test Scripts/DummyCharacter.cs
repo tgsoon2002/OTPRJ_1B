@@ -26,7 +26,7 @@ public class DummyCharacter : MonoBehaviour, ICharacterStats, ICharacterProperti
 	private bool isSelected;
 	[SerializeField]
 	private bool isMoving;
-
+	[SerializeField]
 	CharacterClassType cType = CharacterClassType.MELEE;
 
 	public float Max_Character_Heralth
@@ -38,61 +38,61 @@ public class DummyCharacter : MonoBehaviour, ICharacterStats, ICharacterProperti
 	public float Current_Chacter_Health
 	{
 		get { return currentHealth; }
-		set { value = currentHealth; }
+		set { currentHealth = value; }
 	}
 
 	public float Max_Character_Stamina
 	{
 		get { return maxStamina; }
-		set { value = maxStamina; }
+		set { maxStamina = value; }
 	}
 
 	public float Current_Character_Stamina
 	{	
 		get { return currentStamina; }
-		set { value = currentStamina; }
+		set { currentStamina = value; }
 	}
 
 	public float Attack_Speed
 	{
 		get { return attackSpeed; }
-		set { value = attackSpeed; }
+		set { attackSpeed = value; }
 	}
 
 	public float Move_Speed
 	{
 		get { return moveSpeed; }
-		set { value = moveSpeed; }
+		set { moveSpeed = value; }
 	}
 
 	public float Attack_Damage
 	{
 		get { return attackDamage; }
-		set { value = attackDamage; }
+		set { attackDamage = value; }
 	}
 
 	public float Attack_Range
 	{
 		get { return attackRange; }
-		set { value = attackRange; }
+		set { attackRange = value; }
 	}
 
 	public float Physical_Defense
 	{
 		get { return physDef; }
-		set { value = physDef; }
+		set { physDef = value; }
 	}
 
 	public bool Is_Selected
 	{
 		get { return isSelected; }
-		set { value = isSelected; }
+		set { isSelected = value; }
 	}
 
 	public bool Is_Moving
 	{
 		get { return isMoving; }
-		set { value = isMoving; }
+		set { isMoving = value; }
 	}
 
 	public CharacterClassType Character_Class_Type

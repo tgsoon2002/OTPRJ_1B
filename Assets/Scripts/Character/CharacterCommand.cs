@@ -17,8 +17,10 @@ public class CharacterCommand : MonoBehaviour
 	private TouchPhase touchPhase;
 	private int touchCount;
 	private bool isTapped = false;
-	private Vector3 deltaTouchPosition;
+	private Vector2 deltaTouchPosition;
 	private Vector3 initialPositionForRotation;
+	private int doubleTap = 0;
+	private bool doubleTapBegin = false;
 
 //HACK - This variable is mainly for debugging purposes:
 	[SerializeField]
@@ -31,6 +33,11 @@ public class CharacterCommand : MonoBehaviour
 	#endregion
 
 	#region Built-in Unity Methods
+
+	void Awake()
+	{
+		this.enabled = false;
+	}
 
 	// Use this for initialization
 	void Start ()
@@ -46,6 +53,8 @@ public class CharacterCommand : MonoBehaviour
 		
 		if(touchCount > 0)
 		{
+			deltaTouchPosition = Input.GetTouch(0).deltaPosition;
+
 			for(int i = 0; i < touchCount; i++)
 			{
 				touchInput = Input.GetTouch(i);
@@ -156,7 +165,7 @@ public class CharacterCommand : MonoBehaviour
 		if(_hit && hit.collider.tag == "Player")
 		{
 			isTapped = true;
-			deltaTouchPosition = touchInput.position;
+
 			cachedTransform = gameObject.transform;
 		}
 	}
@@ -169,7 +178,19 @@ public class CharacterCommand : MonoBehaviour
 	{
 		if(!_hit)
 		{
-			SquadManager.Instance.Focused_Character = null;
+			doubleTap++;
+
+			if(!doubleTapBegin)
+			{
+				StartCoroutine(DoubleTapTracker());
+			}
+
+			if(doubleTap == 2 && doubleTapBegin)
+			{
+				gameObject.GetComponent<ICharacterProperties>().Is_Selected = false;
+				SquadManager.Instance.Focused_Character = null;
+				this.enabled = false;
+			}
 		}
 	}
 
@@ -207,11 +228,11 @@ public class CharacterCommand : MonoBehaviour
 		{
 			if(newTouchPosition.y > initialPositionForRotation.y)
 			{
-				gameObject.transform.Rotate(Vector3.forward, 10.0f);
+				gameObject.transform.Rotate(Vector3.up, 10.0f);
 			}
 			else if(newTouchPosition.y < initialPositionForRotation.y)
 			{
-				gameObject.transform.Rotate(Vector3.forward, -10.0f);
+				gameObject.transform.Rotate(Vector3.up, -10.0f);
 			}
 
 			initialPositionForRotation = newTouchPosition;
@@ -225,11 +246,14 @@ public class CharacterCommand : MonoBehaviour
 	private void MeleeAttack(bool _hit)
 	{
 		//Declaring local variables
-		float distance = Vector3.Distance(gameObject.transform.position, hit.collider.gameObject.transform.position);
-		ICharacterStats charRef = gameObject.GetComponent<ICharacterStats>();
+		float distance;
+		ICharacterStats charRef;
 
 		if(_hit && hit.collider.tag == "Enemy")
 		{
+			distance = Vector3.Distance(gameObject.transform.position, hit.collider.gameObject.transform.position);
+			charRef = gameObject.GetComponent<ICharacterStats>();
+
 			if(distance <= charRef.Attack_Range && charRef.Current_Character_Stamina > 0)
 			{
 				//HACK -- Mark for: Subject To Change
@@ -241,6 +265,14 @@ public class CharacterCommand : MonoBehaviour
 				charRef.Current_Character_Stamina -= 20.0f;
 			}
 		}
+	}
+
+	private IEnumerator DoubleTapTracker()
+	{
+		doubleTapBegin = true;
+		yield return new WaitForSeconds(1.0f);
+		doubleTapBegin = false;
+		doubleTap = 0;
 	}
 		
 	#endregion

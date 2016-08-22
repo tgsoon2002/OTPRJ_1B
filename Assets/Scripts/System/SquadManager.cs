@@ -86,11 +86,13 @@ public class SquadManager : MonoBehaviour
 						if(!hit.collider.gameObject.GetComponent<ICharacterProperties>().Is_Selected)
 						{
 							hit.collider.gameObject.GetComponent<ICharacterProperties>().Is_Selected = true;
-
+						
 							if(focusedCharacter != null)
 							{
 								//Disable the previous focused character's CharacterComand component.
+								focusedCharacter.GetComponent<ICharacterProperties>().Is_Selected = false;
 								focusedCharacter.GetComponent<CharacterCommand>().enabled = false;
+								focusedCharacter = null;
 							}
 
 							focusedCharacter = hit.collider.gameObject;
