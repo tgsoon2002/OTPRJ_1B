@@ -76,7 +76,7 @@ public class UICombatManager : MonoBehaviour
 	{
 		activeBtn.SetActive (true);
 		itemPanel.SetActive (false);
-		SkillPatten.SetActive (false);
+		SkillPatten.GetComponent<SkillManager> ().IsSkillScreenOpen = false;
 		pauseBtn.SetActive (false);
 	}
 
@@ -85,10 +85,10 @@ public class UICombatManager : MonoBehaviour
 		activeBtn.SetActive (false);
 		if (itemMode) {
 			itemPanel.SetActive (true);
-			SkillPatten.SetActive (false);	
+			SkillPatten.GetComponent<SkillManager> ().IsSkillScreenOpen = false;
 		} else {
 			itemPanel.SetActive (false);
-			SkillPatten.SetActive (true);
+			SkillPatten.GetComponent<SkillManager> ().IsSkillScreenOpen = true;
 		}
 		pauseBtn.SetActive (true);
 	}

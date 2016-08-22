@@ -3,7 +3,9 @@ using System.Collections;
 
 public class SkillSet : MonoBehaviour
 {
-
+	public string skillTitle;
+	public string skillDescription;
+	public Sprite backGroundImage;
 	public SkillNode endNode;
 	public SkillNode startNode;
 

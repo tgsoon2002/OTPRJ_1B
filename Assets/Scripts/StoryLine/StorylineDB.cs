@@ -32,7 +32,7 @@ public class StorylineDB : MonoBehaviour
 			isCuttingScene = true;
 			NextLine ();
 		}
-		if (Input.GetKeyDown (KeyCode.Space) && isCuttingScene) {
+		if (Input.GetTouch (0).phase == TouchPhase.Ended && isCuttingScene) {
 			NextLine ();
 		} 
 	}
