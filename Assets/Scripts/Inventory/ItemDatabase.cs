@@ -17,10 +17,13 @@ public class ItemDatabase : MonoBehaviour
         ConstructItemDatabase();
 
         Debug.Log(FetchItemByID(0).Description);
+
+        Debug.Log(FetchItemByID(0).Description);
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update () 
+    {
 	
 	}
 
