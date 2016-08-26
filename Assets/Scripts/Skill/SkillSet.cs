@@ -6,6 +6,7 @@ public class SkillSet : MonoBehaviour
 	public string skillTitle;
 	public string skillDescription;
 	public Sprite backGroundImage;
+	public Sprite backGroundBtnImage;
 	public SkillNode endNode;
 	public SkillNode startNode;
 

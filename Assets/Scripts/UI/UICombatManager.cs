@@ -40,15 +40,15 @@ public class UICombatManager : MonoBehaviour
 	void Awake ()
 	{
 		_instance = this;
+		activeBtn = transform.GetChild (0).gameObject;
+		itemPanel = transform.GetChild (1).gameObject;
+		cutScene = transform.GetChild (2).gameObject;
+		pauseBtn = transform.GetChild (3).gameObject;
 	}
 
 	// Use this for initialization
 	void Start ()
 	{
-		activeBtn = transform.GetChild (0).gameObject;
-		itemPanel = transform.GetChild (1).gameObject;
-		cutScene = transform.GetChild (2).gameObject;
-		pauseBtn = transform.GetChild (3).gameObject;
 		_ResumeBattle ();
 	}
 
@@ -56,7 +56,6 @@ public class UICombatManager : MonoBehaviour
 	public void DisableBoolAnimator (Animator anim)
 	{
 		anim.SetBool ("IsDisplayed", false);
-
 	}
 
 	public void EnableBoolAnimator (Animator anim)
@@ -71,41 +70,61 @@ public class UICombatManager : MonoBehaviour
 	}
 
 
-
+	/// <summary>
+	/// Resumes the battle.
+	/// </summary>
 	public void _ResumeBattle ()
 	{
 		activeBtn.SetActive (true);
 		itemPanel.SetActive (false);
 		SkillPatten.GetComponent<SkillManager> ().IsSkillScreenOpen = false;
 		pauseBtn.SetActive (false);
+		Time.timeScale = 1f;
 	}
 
+	/// <summary>
+	/// Opens the action. When action button was click 
+	/// </summary>
 	public void _OpenAction ()
 	{
+		Time.timeScale = 0.1f;
 		activeBtn.SetActive (false);
+		pauseBtn.SetActive (true);
 		if (itemMode) {
 			itemPanel.SetActive (true);
 			SkillPatten.GetComponent<SkillManager> ().IsSkillScreenOpen = false;
 		} else {
 			itemPanel.SetActive (false);
 			SkillPatten.GetComponent<SkillManager> ().IsSkillScreenOpen = true;
+			//SkillPatten.GetComponent<SkillManager> ().ChangeSKillSet (currentChar.skillSet, currentChar.currentMana, currentChar.maxMana);
 		}
-		pauseBtn.SetActive (true);
+
 	}
 
-
-
+	/// <summary>
+	/// Opens the setting menu.
+	/// </summary>
 	public void _OpenSetting ()
 	{
-
+		Time.timeScale = 0f;
 	}
 
+	/// <summary>
+	/// Starts the cut scene.
+	/// </summary>
+	/// <returns>The cut scene.</returns>
 	public GameObject StartCutScene ()
 	{
 		cutScene.SetActive (true);
+		activeBtn.SetActive (false);
+		itemPanel.SetActive (false);
+		pauseBtn.SetActive (false);
 		return cutScene;
 	}
 
+	/// <summary>
+	/// Ends the cut scene.
+	/// </summary>
 	public void EndCutScene ()
 	{
 		cutScene.SetActive (false);

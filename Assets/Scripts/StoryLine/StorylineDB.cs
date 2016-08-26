@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.EventSystems;
 using System.Collections;
 using System.Collections.Generic;
 using LitJson;
@@ -6,11 +7,16 @@ using System.IO;
 
 public class StorylineDB : MonoBehaviour
 {
-	GameObject cutscene;
+	public GameObject cutscene;
 	private JsonData storyLineJson;
 	Dialouge[] storyActDB;
-	public int count = 0;
+	public int currentLine = -1;
+	public int lastLine = -1;
 	public bool isCuttingScene = false;
+	Ray ray;
+	RaycastHit hit;
+	Touch touchPos;
+	public Camera cam;
 
 	void Awake ()
 	{
@@ -20,7 +26,7 @@ public class StorylineDB : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-		
+		ray = cam.ScreenPointToRay (new Vector3 (touchPos.position.x, touchPos.position.y, 5f));
 
 	}
 	
@@ -32,22 +38,6 @@ public class StorylineDB : MonoBehaviour
 			isCuttingScene = true;
 			NextLine ();
 		}
-		if (Input.GetTouch (0).phase == TouchPhase.Ended && isCuttingScene) {
-			NextLine ();
-		} 
-	}
-
-	void NextLine ()
-	{
-		if (count < storyActDB.Length) {
-			cutscene.GetComponent<CutScene> ().Dialoge (storyActDB [count].leftSide, storyActDB [count].message, storyActDB [count].charName);
-			count++;	
-		} else {
-			UICombatManager.Instance.EndCutScene ();
-			isCuttingScene = false;
-		}
-
-
 	}
 
 	void ConstructData ()
@@ -64,6 +54,45 @@ public class StorylineDB : MonoBehaviour
 		storyActDB = temp.ToArray ();
 	}
 
+	public void NextLine ()
+	{
+		Debug.Log ("Next !");
+		currentLine++;
+		if (currentLine > lastLine) {
+			lastLine = currentLine;
+		}
+		if (currentLine < storyActDB.Length) {
+			
+			cutscene.GetComponent<CutScene> ().Dialoge (storyActDB [currentLine].leftSide, storyActDB [currentLine].message, storyActDB [currentLine].charName);
+		} else {
+			UICombatManager.Instance.EndCutScene ();
+			UICombatManager.Instance._ResumeBattle ();
+			isCuttingScene = false;
+		}
+	}
+
+	public void ResumeLine ()
+	{
+		currentLine = lastLine;
+		cutscene.GetComponent<CutScene> ().Dialoge (storyActDB [currentLine].leftSide, storyActDB [currentLine].message, storyActDB [currentLine].charName);
+
+	}
+
+	public void SkipCutsene ()
+	{
+		lastLine = storyActDB.Length;
+		UICombatManager.Instance.EndCutScene ();
+		UICombatManager.Instance._ResumeBattle ();
+		isCuttingScene = false;
+	}
+
+	public void PrevLine ()
+	{
+		if (currentLine > 0) {
+			currentLine--;
+			cutscene.GetComponent<CutScene> ().Dialoge (storyActDB [currentLine].leftSide, storyActDB [currentLine].message, storyActDB [currentLine].charName);		
+		}
+	}
 }
 //(bool isLeftChar, string message, string charName, Sprite portrait)
 public struct Dialouge

@@ -4,29 +4,36 @@ using System.Collections;
 
 public class SkillManager : MonoBehaviour
 {
+	#region Data Members
+
 	public Camera cam;
 	Ray ray;
 	RaycastHit hit;
 	bool drawing = false;
+	float currentMana = 100;
+	float maxMana = 100;
 
 
 	public Material before;
 	public Material after;
-	public bool isSkillScreenOpen = false;
+	bool isSkillScreenOpen = false;
 	public int skillActiveID;
-	public Transform skillContainer;
-	public SkillSet[] skillSetA;
-	public SkillNode endNode;
-	public SkillNode nextNode;
-	public bool skillSuccess = false;
-	public SkillSet currentSet;
+	Transform skillContainer;
+	SkillSet[] skillSet;
+	SkillNode endNode;
+	SkillNode nextNode;
+	bool skillSuccess = false;
+	SkillSet currentSet;
 
 	public GameObject canvas;
 	public GameObject pattern;
-
+	public Image[] backgroundImageButtonList;
 	Touch touchPos;
 
-	#region Prop
+
+	#endregion
+
+	#region Setters & Getters
 
 	public bool IsSkillScreenOpen {
 		get{ return  isSkillScreenOpen; }
@@ -40,17 +47,18 @@ public class SkillManager : MonoBehaviour
 
 	#endregion
 
+	#region Built-in Unity Methods
 
 	// Use this for initialization
 	void Start ()
 	{
-		
-		if (skillSetA [skillActiveID] != null) {
+
+		if (skillSet [skillActiveID] != null) {
 			_ChangeSkill (skillActiveID);
 		}
 
 	}
-	
+
 	// Update is called once per frame
 	void Update ()
 	{
@@ -64,9 +72,9 @@ public class SkillManager : MonoBehaviour
 			}
 			// whem move the finger around.
 			if (touchPos.phase == TouchPhase.Moved) {
-				
+
 				// reduce stamina when drawing the patten.
-				ReduceStamina ();
+				ReduceMana ();
 				// move the oject follow the mouse position to do the logic.
 				transform.position = cam.ScreenToWorldPoint (new Vector3 (touchPos.position.x, touchPos.position.y, 2f));
 				ray = cam.ScreenPointToRay (new Vector3 (touchPos.position.x, touchPos.position.y, 5f));
@@ -74,7 +82,6 @@ public class SkillManager : MonoBehaviour
 					if (hit.collider.tag == "skillNode") {
 						// if hit the node in the middle, then set the next nodel
 						if (hit.collider.GetComponent<SkillNode> () == nextNode && nextNode != endNode && hit.collider.gameObject.activeSelf == true) {
-							Debug.Log ("hit the node");
 							hit.collider.GetComponent<MeshRenderer> ().material = after;
 							nextNode = hit.collider.GetComponent<SkillNode> ().nexNode;
 						} 
@@ -96,6 +103,15 @@ public class SkillManager : MonoBehaviour
 		}
 	}
 
+	#endregion
+
+	#region Public Methods
+
+	/// <summary>
+	/// Changes the skill.
+	/// This will change the current patten to the proper skill being choosed.
+	/// </summary>
+	/// <param name="skillID">Skill I.</param>
 	public void _ChangeSkill (int skillID)
 	{
 		// remove the old pattern if there exist.
@@ -103,7 +119,7 @@ public class SkillManager : MonoBehaviour
 			Destroy (currentSet.gameObject);
 		}
 		// create the pattern
-		GameObject temp = Instantiate (skillSetA [skillID].gameObject);
+		GameObject temp = Instantiate (skillSet [skillID].gameObject);
 		temp.transform.SetParent (skillContainer);
 		temp.transform.localPosition = Vector3.zero;
 		temp.SetActive (true);
@@ -117,11 +133,38 @@ public class SkillManager : MonoBehaviour
 		endNode = temp.GetComponent<SkillSet> ().endNode;
 	}
 
-	void ReduceStamina ()
+	/// <summary>
+	/// Changes the list of skill base. base on character being select. 
+	/// </summary>
+	/// <param name="newSkillSet">New skill set.</param>
+	public void ChangeSKillSet (SkillSet[] newSkillSet, float mana, float newMaxMana)
 	{
-		
+		skillSet = newSkillSet;
+		currentMana = mana;
+		maxMana = newMaxMana;
+		for (int i = 0; i < 4; i++) {
+			backgroundImageButtonList [i].sprite = newSkillSet [i].backGroundBtnImage;
+		}
+		_ChangeSkill (0);
 	}
 
+	#endregion
+
+	#region Private Methods
+
+	/// <summary>
+	///  this function will run wheneer player start drawing patten.
+	/// This will reduce stamina of the player and update on the bar.
+	/// </summary>
+	void ReduceMana ()
+	{
+		currentMana -= 0.2f;
+	}
+
+	/// <summary>
+	/// Actives the skill success.
+	/// This will active the skill when the patten was draw correctly
+	/// </summary>
 	void ActiveSkillSuccess ()
 	{
 		// do some skill here.
@@ -133,6 +176,10 @@ public class SkillManager : MonoBehaviour
 		Debug.Log ("Finish skill");
 	}
 
+	/// <summary>
+	/// Actives the skill fail.
+	/// This will reset the board, as patten unccessfully drawed.
+	/// </summary>
 	void ActiveSkillFail ()
 	{
 		currentSet.GetComponent<SkillSet> ().ResetSkill (before);
@@ -140,4 +187,7 @@ public class SkillManager : MonoBehaviour
 		Debug.Log ("Fail skill");
 	}
 
+	#endregion
+
 }
+	
