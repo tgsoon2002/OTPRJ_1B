@@ -21,6 +21,7 @@ public class CharacterCommand : MonoBehaviour
 	private Vector3 initialPositionForRotation;
 	private int doubleTap = 0;
 	private bool doubleTapBegin = false;
+	private int layerMask = 1 << 31;
 
 //HACK - This variable is mainly for debugging purposes:
 	[SerializeField]
@@ -37,6 +38,7 @@ public class CharacterCommand : MonoBehaviour
 	void Awake()
 	{
 		this.enabled = false;
+		layerMask = ~layerMask;
 	}
 
 	// Use this for initialization
@@ -107,8 +109,10 @@ public class CharacterCommand : MonoBehaviour
 		bool isHit = false;
 
 		touchRay = Camera.main.ScreenPointToRay(touchInput.position);
-		isHit = Physics.Raycast(touchRay, out hit);	//This should only be the raycast in this
-													//object.
+
+		//This should only be the raycast in this object. Mask 
+		//layer 31 from being hit by the raycast. 
+		isHit = Physics.Raycast(touchRay, out hit, layerMask);	
 	
 		switch(i)
 		{

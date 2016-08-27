@@ -7,8 +7,15 @@ public class SquadManager : MonoBehaviour
 	#region Data Members
 
 	private static SquadManager _instance;
+
+	[SerializeField]
 	private List<GameObject> squadList;
+
+	[SerializeField]
 	private GameObject focusedCharacter;
+
+	[SerializeField]
+	private int layerMask = 1 << 31;
 
 	#endregion
 
@@ -52,6 +59,7 @@ public class SquadManager : MonoBehaviour
 
 	void Awake()
 	{
+		layerMask = ~layerMask;
 		squadList = new List<GameObject>();
 	}
 
@@ -79,10 +87,13 @@ public class SquadManager : MonoBehaviour
 				Ray screenRay = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
 				RaycastHit hit;
 
-				if(Physics.Raycast(screenRay, out hit))
+				//Mask Layer 31, which is the layer to be used for targeting.
+				if(Physics.Raycast(screenRay, out hit, layerMask))
 				{	
 					if(hit.collider.tag == "Player")
 					{
+						Debug.Log(hit.collider.gameObject.name);
+
 						if(!hit.collider.gameObject.GetComponent<ICharacterProperties>().Is_Selected)
 						{
 							hit.collider.gameObject.GetComponent<ICharacterProperties>().Is_Selected = true;

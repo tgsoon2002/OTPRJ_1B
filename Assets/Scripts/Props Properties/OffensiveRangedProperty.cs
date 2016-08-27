@@ -106,6 +106,8 @@ public class OffensiveRangedProperty : MonoBehaviour
 	/// <param name="stayAliveTimer">Stay alive timer.</param>
 	public void AddForceWithGivenDirectionOnProjectile(Vector3 dir, float spd, float stayAliveDist, float _stayAliveTimer)
 	{
+		Vector3 normDir = Vector3.Normalize(dir);
+
 		stayAliveTimer = _stayAliveTimer;
 		stayAliveDistance = stayAliveDist;
 		initialPosition = gameObject.transform.position;
