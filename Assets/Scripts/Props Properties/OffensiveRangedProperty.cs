@@ -62,10 +62,14 @@ public class OffensiveRangedProperty : MonoBehaviour
 		
 	//When the projectile hits a collider that is
 	//non-Trigger type, destroy it.
-	void OnCollisionEnter(Collision col)
+	void OnTriggerEnter(Collider col)
 	{
 		Debug.Log("Collided with: " + col.gameObject.name);
-		Destroy(gameObject);
+
+		if(col.tag == "Enemy")
+		{
+			Destroy(gameObject);	
+		}
 	}
 		
 	#endregion
@@ -123,7 +127,7 @@ public class OffensiveRangedProperty : MonoBehaviour
 		}
 
 		StartCoroutine(CountdownTimer());
-		StartCoroutine(AddForceAndDestroyOnSpecifiedParam(dir, spd, stayAliveTimer));
+		StartCoroutine(AddForceAndDestroyOnSpecifiedParam(normDir, spd, stayAliveTimer));
 	}
 		
 	#endregion

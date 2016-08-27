@@ -46,10 +46,9 @@ public class RangedCharacterAI : MonoBehaviour
 			if(pChar.Current_Character_Stamina >= basicRangedAttack && !isOnCoolDown)
 			{
 				GameObject tmp = Instantiate(projectile);
-				tmp.transform.SetParent(shooter.transform);
 				tmp.transform.position = shooter.transform.position;
 				tmp.GetComponent<OffensiveRangedProperty>().
-					AddForceWithGivenDirectionOnProjectile(col.gameObject.transform.position, tempProjectileSpeed);
+					AddForceWithGivenDirectionOnProjectile(col.gameObject.transform.position - transform.position, tempProjectileSpeed);
 				gameObject.GetComponent<ICharacterStats>().Current_Character_Stamina -= basicRangedAttack;
 				StartCoroutine(AttackCoolDown(gameObject.GetComponent<ICharacterStats>().Attack_Speed));
 			}
