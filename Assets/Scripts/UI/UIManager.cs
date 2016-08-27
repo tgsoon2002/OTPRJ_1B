@@ -8,7 +8,7 @@ public class UIManager : MonoBehaviour
     Vector3 startingPosition;
     Collider2D col;
     bool isTapped;
-    Animator anim;
+    public Animator anim;
 
     float _horizontalLimit = Screen.height, _verticalLimit = Screen.width;
 
@@ -58,7 +58,7 @@ public class UIManager : MonoBehaviour
                     if (isTapped == true)
                     {
                         isTapped = false;
-                        EnableBoolAnimator (anim);
+                        EnableBoolAnimator ();
                     }
 
                     isTapped = false;
@@ -68,16 +68,28 @@ public class UIManager : MonoBehaviour
         }
 	}
 
-    public void DisableBoolAnimator (Animator anim)
+    public void DisableBoolAnimator ()
     {
         anim.SetBool("IsDisplayed", false);
 
     }
 
-    public void EnableBoolAnimator (Animator anim)
+    public void EnableBoolAnimator ()
     {
+        Debug.Log(anim);
         anim.SetBool("IsDisplayed", true);
     }
+
+//    public void DisableBoolAnimator (Animator anim)
+//    {
+//        anim.SetBool("IsDisplayed", false);
+//
+//    }
+//
+//    public void EnableBoolAnimator (Animator anim)
+//    {
+//        anim.SetBool("IsDisplayed", true);
+//    }
 
     public void NavigateTo (int scene)
     {

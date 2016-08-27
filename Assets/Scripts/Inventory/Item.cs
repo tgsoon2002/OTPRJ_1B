@@ -88,7 +88,7 @@ public class Item
         this._IsStackable = isStackable;
         this._Rarity = rarity;
     }
-
+        
     public Item ()
     {
         this._ItemID = -1;

@@ -10,16 +10,23 @@ public class ItemDatabase : MonoBehaviour
     private JsonData itemData;
 
 	// Use this for initialization
+    /*
 	void Start () 
     {
         itemData = JsonMapper.ToObject(File.ReadAllText(Application.dataPath + 
                                        "/StreamingAssets/Items.json"));
         ConstructItemDatabase();
 
-        Debug.Log(FetchItemByID(0).Description);
-
-        Debug.Log(FetchItemByID(0).Description);
+        //Debug.Log(FetchItemByID(0).Description);
 	}
+    */   
+
+    void Awake()
+    {
+        itemData = JsonMapper.ToObject(File.ReadAllText(Application.dataPath + 
+            "/StreamingAssets/Items.json"));
+        ConstructItemDatabase();
+    }
 	
 	// Update is called once per frame
 	void Update () 

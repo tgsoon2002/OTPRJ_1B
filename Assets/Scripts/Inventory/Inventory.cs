@@ -1,51 +1,77 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class Inventory : MonoBehaviour 
 {
     public GameObject inventoryPanel;
     public GameObject item;
+    public GameObject itemContainer;
     public ItemDatabase itemDatabase;
-    int numberItems;
 
     public List<Item> itemList = new List<Item>();
-    public List<GameObject> inventoryItems;
+    public List<GameObject> inventoryItems = new List<GameObject>();
 
     void Start()
     {
-        //itemDatabase = GetComponent<ItemDatabase>();
+       // itemDatabase = GetComponent<ItemDatabase>();
 
-        numberItems = 5;
-        inventoryPanel = GameObject.Find("Content");
-        item = inventoryPanel.transform.FindChild("Item").gameObject;
+       
+       
+        //item = inventoryPanel.transform.FindChild("Item").gameObject;
 
-        for (int i = 0; i < numberItems; i++)
-        {
-            itemList.Add(new Item());
-            inventoryItems.Add(Instantiate(item));
-            inventoryItems[i].transform.SetParent(inventoryPanel.transform);
-            inventoryItems[i].transform.localScale = new Vector3(1.0f, 1.0f);
-        }
+//        for (int i = 0; i < numberItems; i++)
+//        {
+//            itemList.Add(new Item());
+//            inventoryItems.Add(Instantiate(item));
+//
+//            inventoryItems[i].transform.SetParent(inventoryPanel.transform);
+//                inventoryItems[i].transform.localScale = new Vector3(1.0f, 1.0f);
+//
+//            /*
+//            inventoryItems[i].transform.GetChild(1).GetChild(1).GetChild(0).gameObject.GetComponent<Text>().text = itemList[i].Description;
+//            Debug.Log(inventoryItems[i].transform.GetChild(1).GetChild(1).GetChild(0).gameObject.GetComponent<Text>().text);
+//            */
+//
+//        }
 
         AddItem(0);
+        AddItem(1);
+    }
+
+    void Awake()
+    {
+        
     }
 
     public void AddItem(int itemID)
     {
+        Debug.Log("Item index" + itemID);
+        Debug.Log(itemDatabase);
         Item itemToAdd = itemDatabase.FetchItemByID(itemID);
 
-        for (int i = 0; i < itemList.Count; i++)
-        {
-            if (itemList[i].ID == -1)
-            {
-                itemList[i] = itemToAdd;
+//        for (int i = 0; i < itemList.Count; i++)
+//        {
+//            if (itemList[i].ID == -1)
+//            {
+                //itemList[i] = itemToAdd;
                 GameObject itemObj = Instantiate(item);
-                itemObj.transform.SetParent(inventoryItems[i].transform);
+                itemObj.transform.SetParent(itemContainer.transform);
                 itemObj.transform.position = Vector2.zero;
-                break;
-            }
-        }
+                itemObj.transform.localScale = Vector2.one;
+        itemObj.GetComponent<testItem>().uiManager = GetComponent<UIManager>();
+                itemObj.GetComponent<testItem>().ChangeInfo(itemToAdd, 2);
+
+                /*
+                inventoryItems[i].transform.GetChild(1).GetChild(1).GetChild(0).gameObject.GetComponent<Text>().text = itemToAdd.Description;
+                Debug.Log(inventoryItems[i].transform.GetChild(1).GetChild(1).GetChild(0).gameObject.GetComponent<Text>().text);
+                */
+
+
+               // break;
+//            }
+//        }
     }
 
     /*
