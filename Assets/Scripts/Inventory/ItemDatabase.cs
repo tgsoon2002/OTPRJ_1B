@@ -8,23 +8,11 @@ public class ItemDatabase : MonoBehaviour
 {
     private List<Item> database = new List<Item>();
     private JsonData itemData;
-
-	// Use this for initialization
-    /*
-	void Start () 
-    {
-        itemData = JsonMapper.ToObject(File.ReadAllText(Application.dataPath + 
-                                       "/StreamingAssets/Items.json"));
-        ConstructItemDatabase();
-
-        //Debug.Log(FetchItemByID(0).Description);
-	}
-    */   
-
+    	
     void Awake()
     {
         itemData = JsonMapper.ToObject(File.ReadAllText(Application.dataPath + 
-            "/StreamingAssets/Items.json"));
+            "/StreamingAssets/ItemDatabase.json"));
         ConstructItemDatabase();
     }
 	

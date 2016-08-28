@@ -76,7 +76,7 @@ public class UIManager : MonoBehaviour
 
     public void EnableBoolAnimator ()
     {
-        Debug.Log(anim);
+        //Debug.Log(anim);
         anim.SetBool("IsDisplayed", true);
     }
 

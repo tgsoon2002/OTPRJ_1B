@@ -24,5 +24,18 @@
 		"description": "This item is Bar Foo.  Yeah.",
 		"stackable": false,
 		"rarity": 2
+	},
+	{
+		"id": 2,
+		"name": "Donald Trump",
+		"value": 20,
+		"stats" : {
+			"power": 9001,
+			"defence": 4000,
+			"vitality": 25
+		},
+		"description": "The 2016 Republican Presidential Nominee.",
+		"stackable": true,
+		"rarity": 1
 	}
 ]
