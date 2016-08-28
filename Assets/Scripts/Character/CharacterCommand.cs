@@ -112,14 +112,15 @@ public class CharacterCommand : MonoBehaviour
 
 		//This should only be the raycast in this object. Mask 
 		//layer 31 from being hit by the raycast. 
-		isHit = Physics.Raycast(touchRay, out hit, layerMask);	
-	
+		isHit = Physics.Raycast(touchRay, out hit, layerMask);
+		Debug.DrawRay(touchRay.origin, touchRay.direction * 50000, Color.red, 3.0f);
+			
 		switch(i)
 		{
 		case 0:
 
 			SetCharacterFocus(isHit);
-			DeselectCharacterFocus(isHit);
+			DeselectCharacterFocus();
 							
 			break;
 
@@ -172,11 +173,12 @@ public class CharacterCommand : MonoBehaviour
 	/// <summary>
 	/// Deselects the character focus.
 	/// </summary>
-	/// <param name="_hit">If set to <c>true</c> hit.</param>
-	private void DeselectCharacterFocus(bool _hit)
+	private void DeselectCharacterFocus()
 	{
-		if(!_hit)
+		if(hit.collider == null || hit.collider.tag != "Player")
 		{
+			Debug.Log("Deselect me");
+
 			doubleTap++;
 
 			if(!doubleTapBegin)
