@@ -3,6 +3,7 @@
 		"id": 0,
 		"name": "Foo Bar",
 		"value": 6,
+		"image" : "red_bottle_2",
 		"stats" : {
 			"power": 1,
 			"defence": 4,
@@ -16,6 +17,7 @@
 		"id": 1,
 		"name": "Bar Foo",
 		"value": 12,
+		"image" : "red_bottle_2",
 		"stats" : {
 			"power": 1,
 			"defence": 4,
@@ -29,12 +31,111 @@
 		"id": 2,
 		"name": "Donald Trump",
 		"value": 20,
+		"image" : "donald_trump",
 		"stats" : {
-			"power": 9001,
+			"power": 9,
 			"defence": 4000,
 			"vitality": 25
 		},
-		"description": "The 2016 Republican Presidential Nominee.",
+		"description": "The 2016 Presidential Nominee for the Republican Party.",
+		"stackable": true,
+		"rarity": 1
+	},
+	{
+		"id": 3,
+		"name": "Gary Johnson",
+		"value": 20,
+		"image" : "gary_johnson",
+		"stats" : {
+			"power": 100,
+			"defence": 40000,
+			"vitality": 25000
+		},
+		"description": "The 2016 Presidential Nominee for the Libertarian Party.",
+		"stackable": true,
+		"rarity": 1
+	},
+	{
+		"id": 4,
+		"name": "Jill Stein",
+		"value": 20,
+		"image" : "jill_stein",
+		"stats" : {
+			"power": 100,
+			"defence": 4000,
+			"vitality": 25
+		},
+		"description": "The 2016 Presidential Nominee for the Green Party.",
+		"stackable": true,
+		"rarity": 1
+	},
+	{
+		"id": 5,
+		"name": "Hillary Clinton",
+		"value": 20,
+		"image" : "hillary_clinton",
+		"stats" : {
+			"power": 70,
+			"defence": 40,
+			"vitality": 20
+		},
+		"description": "The 2016 Presidential Nominee for the Democratic Party.",
+		"stackable": true,
+		"rarity": 1
+	},
+	{
+		"id": 6,
+		"name": "Ninja Sword",
+		"value": 20,
+		"image" : "ninja_sword",
+		"stats" : {
+			"power": 70,
+			"defence": 40,
+			"vitality": 20
+		},
+		"description": "The standard, yet unyeilding sword of the Ninja.",
+		"stackable": true,
+		"rarity": 1
+	},
+	{
+		"id": 7,
+		"name": "Thunder Blade",
+		"value": 20,
+		"image" : "thunder_blade",
+		"stats" : {
+			"power": 70,
+			"defence": 40,
+			"vitality": 20
+		},
+		"description": "The thunderous, smashing Thunder Blade.  Experience its electrifying power!",
+		"stackable": true,
+		"rarity": 1
+	},
+	{
+		"id": 8,
+		"name": "Basic Shield",
+		"value": 20,
+		"image" : "basic_shield",
+		"stats" : {
+			"power": 70,
+			"defence": 40,
+			"vitality": 20
+		},
+		"description": "Well duh!  What did you expect, the Shield of Badassery?",
+		"stackable": true,
+		"rarity": 1
+	},
+	{
+		"id": 9,
+		"name": "Quiver & Bow",
+		"value": 20,
+		"image" : "quiver_and_bow",
+		"stats" : {
+			"power": 70,
+			"defence": 40,
+			"vitality": 20
+		},
+		"description": "Never underestimate the sound of an arrow piercing your flesh.",
 		"stackable": true,
 		"rarity": 1
 	}

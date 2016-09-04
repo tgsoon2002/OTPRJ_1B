@@ -35,4 +35,14 @@ public class Inventory : MonoBehaviour
 
         itemObj.GetComponent<UpdateItemUI>().ChangeInfo(itemToAdd, itemQuantity, GetComponent<UIManager>());
     }
+
+    public void RemoveItem(int itemID, int itemQuantity)
+    {
+        
+        GlobalItem temp = globalItemList._GlobalItemList.Find(o => o.ID == itemID);
+        if (temp != null)
+        {                  
+            temp.Quantity -= itemQuantity;
+        }
+    }
 }

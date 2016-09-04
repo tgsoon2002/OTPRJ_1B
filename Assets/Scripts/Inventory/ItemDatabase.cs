@@ -41,7 +41,8 @@ public class ItemDatabase : MonoBehaviour
         {
             database.Add(new Item((int)itemData[i]["id"], 
                          itemData[i]["name"].ToString(), 
-                         (int)itemData[i]["value"], 
+                         (int)itemData[i]["value"],
+                         itemData[i]["image"].ToString(),
                          (int)itemData[i]["stats"]["power"],
                          (int)itemData[i]["stats"]["defence"], 
                          (int)itemData[i]["stats"]["vitality"],

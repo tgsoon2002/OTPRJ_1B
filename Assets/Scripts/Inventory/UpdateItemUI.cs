@@ -4,6 +4,9 @@ using System.Collections;
 
 public class UpdateItemUI : MonoBehaviour 
 {
+    Item item;
+    int quantity;
+    ItemDatabase itemDatabase;
     public Image itemImage;
     public Text itemTitle;
     public Text itemDescription;
@@ -13,6 +16,8 @@ public class UpdateItemUI : MonoBehaviour
     public void ChangeInfo(Item item, int quan, UIManager newItemUI)
     {
         UIManager = newItemUI;
+        this.item = item;
+        this.quantity = quan;
 
         itemTitle.text = item._ItemTitle;
         //Debug.Log(itemTitle.text);
@@ -23,10 +28,20 @@ public class UpdateItemUI : MonoBehaviour
         itemQuantity.text = "x" + quan.ToString();
         //Debug.Log(itemQuantity.text);
 
+        itemImage.sprite = Resources.Load<Sprite>("Images/Icons/Items/" + item.ItemSprite) as Sprite;
+        //Debug.Log("image name: " + item.ItemSprite);
+
     }
 
     public void _Click()
     {
-        UIManager.EnableBoolAnimator();
+        UIManager.EnableBoolAnimator(item, quantity);
+    }
+
+    public void _DeleteItem()
+    {
+       // UIManager.GetComponent<Inventory>().RemoveItem(item);
+
+
     }
 }

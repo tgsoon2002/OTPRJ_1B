@@ -12,7 +12,7 @@ public class Item
     public string _Description;
     public bool _IsStackable;
     public int _Rarity;
-    public Sprite _ItemSprite;
+    public string _ItemSprite;
 
     public int ID
     {
@@ -68,19 +68,20 @@ public class Item
         set { _Rarity = value; }
     }
 
-    public Sprite ItemSprite
+    public string ItemSprite
     {
         get { return _ItemSprite; }
         set { _ItemSprite = value; }
     }
 
-    public Item (int itemID, string itemName, int itemValue,
+    public Item (int itemID, string itemName, int itemValue, string itemSprite,
                  int power, int defence, int vitality, string description,
                  bool isStackable, int rarity)
     {
         this._ItemID = itemID;
         this._ItemTitle = itemName;
         this._ItemValue = itemValue;
+        this._ItemSprite = itemSprite;
         this._Power = power;
         this._Defence = defence;
         this._Vitality = vitality;
