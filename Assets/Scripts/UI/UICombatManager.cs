@@ -53,21 +53,7 @@ public class UICombatManager : MonoBehaviour
 	}
 
 
-	public void DisableBoolAnimator (Animator anim)
-	{
-		anim.SetBool ("IsDisplayed", false);
-	}
 
-	public void EnableBoolAnimator (Animator anim)
-	{
-		anim.SetBool ("IsDisplayed", true);
-		GUI.color = Color.black;
-	}
-
-	public void NavigateTo (int scene)
-	{
-		Application.LoadLevel (scene);
-	}
 
 
 	/// <summary>

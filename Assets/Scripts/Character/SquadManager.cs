@@ -14,20 +14,14 @@ public class SquadManager : MonoBehaviour
 
 	#region Setters & Getters
 
-	public static SquadManager Instance
-	{
-		get 
-		{ 
-			if(!_instance)
-			{
-				try
-				{
-					_instance = FindObjectOfType(typeof(SquadManager)) as SquadManager;
+	public static SquadManager Instance {
+		get { 
+			if (!_instance) {
+				try {
+					_instance = FindObjectOfType (typeof(SquadManager)) as SquadManager;
 
-				}
-				catch 
-				{
-					Debug.LogError("No CombatSystem GameObject detected in scene!");
+				} catch {
+					Debug.LogError ("No CombatSystem GameObject detected in scene!");
 				}
 			}
 
@@ -35,14 +29,19 @@ public class SquadManager : MonoBehaviour
 		}
 	}
 
-	public GameObject Focused_Character
-	{
+	public GameObject Focused_Character {
 		get { return focusedCharacter; }
-		set { focusedCharacter = value; }
+		set {
+			focusedCharacter = value;
+			if (value == null)
+				UICombatManager.Instance.ItemMode = true;
+			else
+				UICombatManager.Instance.ItemMode = false;
+					
+		}
 	}
 
-	public List<GameObject> Squad_List
-	{
+	public List<GameObject> Squad_List {
 		get { return squadList; }
 	}
 
@@ -50,53 +49,46 @@ public class SquadManager : MonoBehaviour
 
 	#region Built-in Unity Methods
 
-	void Awake()
+	void Awake ()
 	{
-		squadList = new List<GameObject>();
+		squadList = new List<GameObject> ();
 	}
 
-	void Start()
+	void Start ()
 	{
-		Character[] refs = FindObjectsOfType(typeof(Character)) as Character[];
+		Character[] refs = FindObjectsOfType (typeof(Character)) as Character[];
 
-		foreach(Character _char in refs)
-		{
+		foreach (Character _char in refs) {
 			//Disable the input component of each character
-			_char.gameObject.GetComponent<CharacterCommand>().enabled = false;
-			squadList.Add(_char.gameObject);
+			_char.gameObject.GetComponent<CharacterCommand> ().enabled = false;
+			squadList.Add (_char.gameObject);
 		}
 	}
 
-	void Update()
+	void Update ()
 	{
-		if(Input.touchCount > 0)
-		{
-			TouchPhase phase = Input.GetTouch(0).phase;
+		if (Input.touchCount > 0) {
+			TouchPhase phase = Input.GetTouch (0).phase;
 
-			if(phase == TouchPhase.Began)
-			{
+			if (phase == TouchPhase.Began) {
 				//Do a raycast
-				Ray screenRay = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
+				Ray screenRay = Camera.main.ScreenPointToRay (Input.GetTouch (0).position);
 				RaycastHit hit;
 
-				if(Physics.Raycast(screenRay, out hit))
-				{	
-					if(hit.collider.tag == "Player")
-					{
-						if(!hit.collider.gameObject.GetComponent<ICharacterProperties>().Is_Selected)
-						{
-							hit.collider.gameObject.GetComponent<ICharacterProperties>().Is_Selected = true;
+				if (Physics.Raycast (screenRay, out hit)) {	
+					if (hit.collider.tag == "Player") {
+						if (!hit.collider.gameObject.GetComponent<ICharacterProperties> ().Is_Selected) {
+							hit.collider.gameObject.GetComponent<ICharacterProperties> ().Is_Selected = true;
 						
-							if(focusedCharacter != null)
-							{
+							if (focusedCharacter != null) {
 								//Disable the previous focused character's CharacterComand component.
-								focusedCharacter.GetComponent<ICharacterProperties>().Is_Selected = false;
-								focusedCharacter.GetComponent<CharacterCommand>().enabled = false;
-								focusedCharacter = null;
+								focusedCharacter.GetComponent<ICharacterProperties> ().Is_Selected = false;
+								focusedCharacter.GetComponent<CharacterCommand> ().enabled = false;
+								Focused_Character = null;
 							}
 
-							focusedCharacter = hit.collider.gameObject;
-							focusedCharacter.GetComponent<CharacterCommand>().enabled = true;
+							Focused_Character = hit.collider.gameObject;
+							focusedCharacter.GetComponent<CharacterCommand> ().enabled = true;
 						}
 					}
 				}

@@ -18,8 +18,8 @@ public class SkillManager : MonoBehaviour
 	public Material after;
 	bool isSkillScreenOpen = false;
 	public int skillActiveID;
-	Transform skillContainer;
-	SkillSet[] skillSet;
+	//Transform skillContainer;
+	public SkillSet[] skillSet;
 	SkillNode endNode;
 	SkillNode nextNode;
 	bool skillSuccess = false;
@@ -120,7 +120,7 @@ public class SkillManager : MonoBehaviour
 		}
 		// create the pattern
 		GameObject temp = Instantiate (skillSet [skillID].gameObject);
-		temp.transform.SetParent (skillContainer);
+		temp.transform.SetParent (pattern.transform);
 		temp.transform.localPosition = Vector3.zero;
 		temp.SetActive (true);
 		currentSet = temp.GetComponent<SkillSet> ();
@@ -172,7 +172,8 @@ public class SkillManager : MonoBehaviour
 		// clear the trail, put the flag skill success, close the skill window.
 		GetComponent<TrailRenderer> ().Clear ();
 		skillSuccess = true;
-		IsSkillScreenOpen = false;
+		UICombatManager.Instance._ResumeBattle ();
+		//IsSkillScreenOpen = false;
 		Debug.Log ("Finish skill");
 	}
 

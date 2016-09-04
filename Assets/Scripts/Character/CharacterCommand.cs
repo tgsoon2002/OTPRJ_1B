@@ -21,6 +21,7 @@ public class CharacterCommand : MonoBehaviour
 	private Vector3 initialPositionForRotation;
 	private int doubleTap = 0;
 	private bool doubleTapBegin = false;
+	private int layerMask = 1 << 31;
 
 //HACK - This variable is mainly for debugging purposes:
 	[SerializeField]
@@ -37,6 +38,7 @@ public class CharacterCommand : MonoBehaviour
 	void Awake()
 	{
 		this.enabled = false;
+		layerMask = ~layerMask;
 	}
 
 	// Use this for initialization
@@ -107,15 +109,18 @@ public class CharacterCommand : MonoBehaviour
 		bool isHit = false;
 
 		touchRay = Camera.main.ScreenPointToRay(touchInput.position);
-		isHit = Physics.Raycast(touchRay, out hit);	//This should only be the raycast in this
-													//object.
-	
+
+		//This should only be the raycast in this object. Mask 
+		//layer 31 from being hit by the raycast. 
+		isHit = Physics.Raycast(touchRay, out hit, layerMask);
+		Debug.DrawRay(touchRay.origin, touchRay.direction * 50000, Color.red, 3.0f);
+			
 		switch(i)
 		{
 		case 0:
 
 			SetCharacterFocus(isHit);
-			DeselectCharacterFocus(isHit);
+			DeselectCharacterFocus();
 							
 			break;
 
@@ -168,11 +173,12 @@ public class CharacterCommand : MonoBehaviour
 	/// <summary>
 	/// Deselects the character focus.
 	/// </summary>
-	/// <param name="_hit">If set to <c>true</c> hit.</param>
-	private void DeselectCharacterFocus(bool _hit)
+	private void DeselectCharacterFocus()
 	{
-		if(!_hit)
+		if(hit.collider == null || hit.collider.tag != "Player")
 		{
+			Debug.Log("Deselect me");
+
 			doubleTap++;
 
 			if(!doubleTapBegin)
