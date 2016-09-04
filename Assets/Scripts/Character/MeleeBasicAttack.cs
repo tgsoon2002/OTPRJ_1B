@@ -44,7 +44,9 @@ public class MeleeBasicAttack : MonoBehaviour
 						if(EvaluateMeleeRange(hit.collider.gameObject) && gameObject.GetComponent<ICharacterStats>().Current_Character_Stamina > testAttackStaminaCost)
 						{
 							//Call the combat system to do its thing.
-							CombatSystem.Instance.DealPhysicalDamage(hit.collider.gameObject, gameObject.GetComponent<ICharacterStats>().Attack_Damage);
+							//CombatSystem.Instance.DealPhysicalDamage(hit.collider.gameObject, gameObject.GetComponent<ICharacterStats>().Attack_Damage);
+							((CombatSystem)SystemLocator.Instance.GetService(SystemDataType.COMBATSYSYEM)).DealPhysicalDamage(
+								hit.collider.gameObject, gameObject.GetComponent<ICharacterStats>().Attack_Damage);
 							gameObject.GetComponent<ICharacterStats>().Current_Character_Stamina -= testAttackStaminaCost;
 						}
 					}

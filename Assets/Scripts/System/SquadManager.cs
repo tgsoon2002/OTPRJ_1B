@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using ObjectTypes;
 
-public class SquadManager : MonoBehaviour
+public class SquadManager : MonoBehaviour, ISystemElement
 {
 	#region Data Members
 
@@ -17,29 +18,36 @@ public class SquadManager : MonoBehaviour
 	[SerializeField]
 	private int layerMask = 1 << 31;
 
+	private SystemDataType systemType = SystemDataType.SQUADMANAGER;
+
 	#endregion
 
 	#region Setters & Getters
 
-	public static SquadManager Instance
+//	public static SquadManager Instance
+//	{
+//		get 
+//		{ 
+//			if(!_instance)
+//			{
+//				try
+//				{
+//					_instance = FindObjectOfType(typeof(SquadManager)) as SquadManager;
+//
+//				}
+//				catch 
+//				{
+//					Debug.LogError("No CombatSystem GameObject detected in scene!");
+//				}
+//			}
+//
+//			return _instance;
+//		}
+//	}
+
+	public SystemDataType System_Type
 	{
-		get 
-		{ 
-			if(!_instance)
-			{
-				try
-				{
-					_instance = FindObjectOfType(typeof(SquadManager)) as SquadManager;
-
-				}
-				catch 
-				{
-					Debug.LogError("No CombatSystem GameObject detected in scene!");
-				}
-			}
-
-			return _instance;
-		}
+		get { return systemType; }
 	}
 
 	public GameObject Focused_Character
@@ -51,6 +59,11 @@ public class SquadManager : MonoBehaviour
 	public List<GameObject> Squad_List
 	{
 		get { return squadList; }
+	}
+
+	public string Get_String
+	{
+		get { return "poop"; }
 	}
 
 	#endregion

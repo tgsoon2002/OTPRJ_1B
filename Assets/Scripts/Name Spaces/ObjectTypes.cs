@@ -8,5 +8,13 @@ namespace ObjectTypes
 		MELEE,
 		RANGED
 	};
+
+	public enum SystemDataType
+	{
+		COMBATSYSYEM,
+		SQUADMANAGER,
+		CAMERAMANAGER,
+		ITEMUSEMANAGER
+	};
 }
 

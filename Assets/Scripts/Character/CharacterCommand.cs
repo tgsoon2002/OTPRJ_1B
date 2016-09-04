@@ -189,7 +189,9 @@ public class CharacterCommand : MonoBehaviour
 			if(doubleTap == 2 && doubleTapBegin)
 			{
 				gameObject.GetComponent<ICharacterProperties>().Is_Selected = false;
-				SquadManager.Instance.Focused_Character = null;
+				//SquadManager.Instance.Focused_Character = null;
+				((SquadManager)(SystemLocator.Instance.GetService(SystemDataType.SQUADMANAGER))).Focused_Character = null;
+
 				this.enabled = false;
 			}
 		}
@@ -260,7 +262,7 @@ public class CharacterCommand : MonoBehaviour
 			{
 				//HACK -- Mark for: Subject To Change
 				//We might add 'Critical' Physical Damage here later.
-				CombatSystem.Instance.DealPhysicalDamage(hit.collider.gameObject, charRef.Attack_Damage);
+				//CombatSystem.Instance.DealPhysicalDamage(hit.collider.gameObject, charRef.Attack_Damage);
 
 				//HACK -- Mark for: Subject To Change
 				//This value will be changed later on.

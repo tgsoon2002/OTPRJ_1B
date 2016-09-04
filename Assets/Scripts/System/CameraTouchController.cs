@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using ObjectTypes;
 
 public class CameraTouchController : MonoBehaviour 
 {
@@ -50,7 +51,7 @@ public class CameraTouchController : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
-		if(SquadManager.Instance.Focused_Character == null)
+		if(((SquadManager)(SystemLocator.Instance.GetService(SystemDataType.SQUADMANAGER))).Focused_Character == null)
 		{
 			switch(Input.touchCount)
 			{
@@ -66,10 +67,17 @@ public class CameraTouchController : MonoBehaviour
 
 				break;
 			}
-
+		}
+		else
+		{
+			if(Input.touchCount == 1)
+			{
+				Debug.Log("Calling CameraFollow()");
+				CameraFollow(((SquadManager)(SystemLocator.Instance.GetService(SystemDataType.SQUADMANAGER))).Focused_Character);	
+			}
 		}
 	}
-
+		
 	#endregion
 
 	#region Public Methods
@@ -108,13 +116,11 @@ public class CameraTouchController : MonoBehaviour
 				{	
 					if(hit.collider == null || hit.collider.tag != "Player" || hit.collider.tag != "Enemy")
 					{
-						Debug.Log("Panning Camera");
 						panCamera = true;
 					}
 				}
 				else
 				{
-					Debug.Log("Panning Camera");
 					panCamera = true;
 				}
 
@@ -176,6 +182,14 @@ public class CameraTouchController : MonoBehaviour
 			cam.fieldOfView += deltaMagnitudeDifference * perspectiveZoomSpeed;
 			cam.fieldOfView = Mathf.Clamp(cam.fieldOfView, perspectiveZoomLimitMin, perspectiveZoomLimitMax);
 		}
+	}
+
+	private void CameraFollow(GameObject toFollow)
+	{
+		//Declaring local variables
+		Vector3 newPosition = new Vector3(toFollow.transform.position.x, transform.position.y, toFollow.transform.position.z - 5.0f);
+
+		transform.position = Vector3.Lerp(transform.position, newPosition, Time.deltaTime * cameraSpeed);
 	}
 
 	#endregion

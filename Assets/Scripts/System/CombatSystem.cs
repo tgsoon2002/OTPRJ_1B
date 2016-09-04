@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using ObjectTypes;
 
-public class CombatSystem : MonoBehaviour
+public class CombatSystem : MonoBehaviour, ISystemElement
 {
 	#region Data Members
 
@@ -19,6 +19,7 @@ public class CombatSystem : MonoBehaviour
 	private RaycastHit hit;
 	private Stack<DamageInsideStack> damageStack;
 	private bool toPlay = true;
+	private SystemDataType typeName = SystemDataType.COMBATSYSYEM;
 
 	#endregion
 
@@ -45,27 +46,32 @@ public class CombatSystem : MonoBehaviour
 
 	#region Setters & Getters
 
-	public static CombatSystem Instance
+//	public static CombatSystem Instance
+//	{
+//		get 
+//		{ 
+//			if(!_instance)
+//			{
+//				_instance = FindObjectOfType(typeof(CombatSystem)) as CombatSystem;
+//
+//				if(!_instance)
+//				{
+//					Debug.LogError("No CombatSystem GameObject detected in scene!");
+//				}
+//				else
+//				{
+//					Debug.Log("Init() called");
+//					_instance.Init();
+//				}
+//			}
+//
+//			return _instance;
+//		}
+//	}
+
+	public SystemDataType System_Type
 	{
-		get 
-		{ 
-			if(!_instance)
-			{
-				_instance = FindObjectOfType(typeof(CombatSystem)) as CombatSystem;
-
-				if(!_instance)
-				{
-					Debug.LogError("No CombatSystem GameObject detected in scene!");
-				}
-				else
-				{
-					Debug.Log("Init() called");
-					_instance.Init();
-				}
-			}
-
-			return _instance;
-		}
+		get { return typeName; }
 	}
 
 	#endregion
@@ -77,6 +83,7 @@ public class CombatSystem : MonoBehaviour
 	/// </summary>
 	void Start()
 	{
+		Init();
 		damageStack = new Stack<DamageInsideStack>();
 	}
 
