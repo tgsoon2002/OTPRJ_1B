@@ -11,11 +11,16 @@ public class OffensiveRangedProperty : MonoBehaviour
 
 	private Collider objCollider;
 	private Rigidbody physics;
+
+	[SerializeField]
 	private Vector3 direction;
+	private Vector3 initialPosition;
 	private float stayAliveDistance = 0.0f;
 	private float stayAliveTimer = 0.0f;
 	private float damageValue;
-	private float speedValue; 
+	private float speedValue;
+	private bool timerTriggered = false;
+	private bool distanceTriggered = false;
 
 	#endregion
 
@@ -34,18 +39,37 @@ public class OffensiveRangedProperty : MonoBehaviour
 
 	#region Built-in Unity Methods
 
-	// Use this for initialization
-	void Start ()
+	//Using Awake() for initialization.
+	void Awake()
 	{
 		physics = GetComponent<Rigidbody>();
 		objCollider = GetComponent<Collider>();
+		//physics.freezeRotation = true;
 	}
 
+	void Update()
+	{
+		if(timerTriggered && stayAliveTimer <= 0)
+		{
+			Destroy(gameObject);
+		}
+
+		if(distanceTriggered && Vector3.Distance(initialPosition, gameObject.transform.position) >= stayAliveDistance)
+		{
+			Destroy(gameObject);
+		}
+	}
+		
 	//When the projectile hits a collider that is
 	//non-Trigger type, destroy it.
-	void OnCollision(Collider col)
+	void OnTriggerEnter(Collider col)
 	{
-		Destroy(gameObject);
+		Debug.Log("Collided with: " + col.gameObject.name);
+
+		if(col.tag == "Enemy")
+		{
+			Destroy(gameObject);	
+		}
 	}
 		
 	#endregion
@@ -84,10 +108,26 @@ public class OffensiveRangedProperty : MonoBehaviour
 	/// <param name="spd">Spd.</param>
 	/// <param name="stayAliveDist">Stay alive dist.</param>
 	/// <param name="stayAliveTimer">Stay alive timer.</param>
-	public void AddForceWithGivenDirectionOnProjectile(Vector3 dir, float spd, float stayAliveDist, float stayAliveTimer)
+	public void AddForceWithGivenDirectionOnProjectile(Vector3 dir, float spd, float stayAliveDist, float _stayAliveTimer)
 	{
+		Vector3 normDir = Vector3.Normalize(dir);
+
+		stayAliveTimer = _stayAliveTimer;
+		stayAliveDistance = stayAliveDist;
+		initialPosition = gameObject.transform.position;
+
+		if(stayAliveDist > 0.0f)
+		{
+			distanceTriggered = true;
+		}
+
+		if(stayAliveTimer > 0.0f)
+		{
+			timerTriggered = true;
+		}
+
 		StartCoroutine(CountdownTimer());
-		StartCoroutine(AddForceAndDestroyOnSpecifiedParam(dir, spd, stayAliveTimer));
+		StartCoroutine(AddForceAndDestroyOnSpecifiedParam(normDir, spd, stayAliveTimer));
 	}
 		
 	#endregion

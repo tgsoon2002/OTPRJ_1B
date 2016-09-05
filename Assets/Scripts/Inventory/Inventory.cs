@@ -13,8 +13,16 @@ public class Inventory : MonoBehaviour
     public List<GameObject> inventoryItems = new List<GameObject>();
     public GlobalInventory globalItemList;
 
+    [SerializeField]
+    private bool isCombatMode = false;
+
     void Start()
     {
+        if (((DummyGameManager)(SystemLocator.Instance.GetService(ObjectTypes.SystemDataType.GAMEMANAGER))).Game_State == ObjectTypes.GameStateType.COMBATMODE)
+        {
+            isCombatMode = true;
+        }
+        
         foreach (GlobalItem item in globalItemList._GlobalItemList)
         {
             AddItem(item.ID, item._ItemQuantity);
@@ -34,6 +42,11 @@ public class Inventory : MonoBehaviour
         itemObj.transform.localScale = Vector2.one;
 
         itemObj.GetComponent<UpdateItemUI>().ChangeInfo(itemToAdd, itemQuantity, GetComponent<UIManager>());
+
+        if (isCombatMode)
+        {
+            itemObj.transform.GetChild(3).gameObject.SetActive(false);
+        }
     }
 
     public void RemoveItem(int itemID, int itemQuantity)

@@ -4,23 +4,20 @@ using System.Collections;
 public class CharacterMovement : MonoBehaviour 
 {
 	#region Data Members
+
+	private Rigidbody2D phys;
 	Transform cachedTransform;
 	Vector3 startingPosition;
 	Collider2D col;
-	
+	bool isMoving = false;
 	float _horizontalLimit = Screen.height, _verticalLimit = Screen.width;
 
+	private bool isRotating = false;
 	private Vector2 startingTouchPosition_Screen;
 	private Vector2 startingTouchPosition_World;
 
 	[SerializeField]
 	float dragSpeed = 0.001f;
-    [SerializeField]
-    bool isMoving = false;
-    [SerializeField]
-    private bool isRotating = false;
-    [SerializeField]
-    bool isTapped = false;
 
 	#endregion
 
@@ -66,50 +63,44 @@ public class CharacterMovement : MonoBehaviour
 				if (Input.touchCount == 1)
 				{
 					startingTouchPosition_Screen = Input.GetTouch(0).position;
-                    
 					startingTouchPosition_World = Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);
 
 					if (col == Physics2D.OverlapPoint(startingTouchPosition_World))
 					{
-                        if (isRotating = true)
-                        {
-                            isRotating = false;
-                        }
-                        
 						isMoving = true;
-                        isTapped = true;
 					}
+
 				}
+				
+				if(Input.touchCount == 2 && isMoving)
+				{
+					isRotating = true;
+				}
+
+				
+
 				break;
 
 			case TouchPhase.Moved:
 
-                if (isRotating == false && isMoving == true && Input.touchCount == 1)
+				if (isMoving && Input.touchCount == 1)
 				{
 					DragObject(deltaPosition);
-                    isTapped = false;
 				}
 
-                if(isRotating && Input.touchCount == 1)
+				if(isMoving && isRotating && Input.touchCount == 2)
 				{
-                    Debug.Log("CUCKS!!!!");
-					Vector2 newTouchPosition = Input.GetTouch(0).position;
+					Vector2 newTouchPosition = Input.GetTouch(1).position;
 					RotateObject(startingTouchPosition_Screen, newTouchPosition);
 					startingTouchPosition_Screen = newTouchPosition;
 				}
 
 				break;
 
-                case TouchPhase.Ended:
+			case TouchPhase.Ended:
 
-                    if (Input.touchCount == 1 && isTapped == true)
-                    {
-                        isRotating = true;  
-                        isTapped = false;
-                    }
+				isMoving = false;
 
-                    isMoving = false;
-                   
 				break;
 			}
 		}
@@ -135,4 +126,5 @@ public class CharacterMovement : MonoBehaviour
 			gameObject.transform.Rotate(Vector3.forward, 10.0f);
 		}
 	}
+			
 }
