@@ -22,7 +22,7 @@ public class ItemInfoPanel : MonoBehaviour
         itemDescription.text = item._Description;
         //Debug.Log(itemDescription.text);
 
-        //itemQuantity.text = "x" + quan.ToString();
+        itemQuantity.text = "x" + quan.ToString();
         //Debug.Log(itemQuantity.text);
 
         itemImage.sprite = Resources.Load<Sprite>("Images/Icons/Items/" + item.ItemSprite) as Sprite;

@@ -11,9 +11,14 @@ public class UpdateItemUI : MonoBehaviour
     public Text itemTitle;
     public Text itemDescription;
     public Text itemQuantity;
-    UIManager UIManager;
+    InventoryUIManager UIManager;
 
-    public void ChangeInfo(Item item, int quan, UIManager newItemUI)
+    public void Start ()
+    {
+        
+    }
+
+    public void ChangeInfo(Item item, int quan, InventoryUIManager newItemUI)
     {
         UIManager = newItemUI;
         this.item = item;
@@ -35,6 +40,7 @@ public class UpdateItemUI : MonoBehaviour
 
     public void _Click()
     {
+        Debug.Log("Clicked on item.");
         UIManager.EnableBoolAnimator(item, quantity);
     }
 

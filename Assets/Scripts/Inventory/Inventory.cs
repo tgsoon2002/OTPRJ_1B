@@ -16,6 +16,11 @@ public class Inventory : MonoBehaviour
     [SerializeField]
     private bool isCombatMode = false;
 
+    public bool Is_Combat_Mode 
+    {
+        get { return isCombatMode; }
+    }
+
     void Start()
     {
         if (((DummyGameManager)(SystemLocator.Instance.GetService(ObjectTypes.SystemDataType.GAMEMANAGER))).Game_State == ObjectTypes.GameStateType.COMBATMODE)
@@ -28,6 +33,7 @@ public class Inventory : MonoBehaviour
             AddItem(item.ID, item._ItemQuantity);
         }
     }
+
     public void AddItem(int itemID, int itemQuantity)
     {
         /*
@@ -41,7 +47,7 @@ public class Inventory : MonoBehaviour
         itemObj.transform.position = Vector2.zero;
         itemObj.transform.localScale = Vector2.one;
 
-        itemObj.GetComponent<UpdateItemUI>().ChangeInfo(itemToAdd, itemQuantity, GetComponent<UIManager>());
+        itemObj.GetComponent<UpdateItemUI>().ChangeInfo(itemToAdd, itemQuantity, GetComponent<InventoryUIManager>());
 
         if (isCombatMode)
         {
