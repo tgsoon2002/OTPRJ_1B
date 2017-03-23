@@ -1,7 +1,13 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: 23095e72d1570c54aabf48102961ded6
 folderAsset: yes
 timeCreated: 1469307955
+=======
+guid: 6f70736a8dfaf4f599430e3d5b857a28
+folderAsset: yes
+timeCreated: 1470038090
+>>>>>>> Matt
 licenseType: Free
 DefaultImporter:
   userData: 
