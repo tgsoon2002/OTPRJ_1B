@@ -1,6 +1,11 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: f9c4384c7a771405e9aa4355f74dbd45
 timeCreated: 1473027653
+=======
+guid: 71b6dded47bb27a4596f2636a3130064
+timeCreated: 1472190099
+>>>>>>> Kien
 licenseType: Free
 MonoImporter:
   serializedVersion: 2

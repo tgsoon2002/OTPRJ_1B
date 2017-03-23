@@ -1,6 +1,11 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: 0905e50d67b515b4bb162312dda130b5
 timeCreated: 1469325064
+=======
+guid: da885d6d5b36eb74c9d8b57d2073a1e3
+timeCreated: 1470607277
+>>>>>>> Kien
 licenseType: Free
 NativeFormatImporter:
   userData: 

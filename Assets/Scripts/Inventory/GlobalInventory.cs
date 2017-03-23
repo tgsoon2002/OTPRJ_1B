@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+<<<<<<< HEAD
 using System.Collections.Generic;
 using LitJson;
 using System.IO;
@@ -52,4 +53,18 @@ public class GlobalInventory : MonoBehaviour
                 (int)globalItemData[i]["quantity"]));
         }
     }
+=======
+
+public class GlobalInventory : MonoBehaviour {
+
+	// Use this for initialization
+	void Start () {
+	
+	}
+	
+	// Update is called once per frame
+	void Update () {
+	
+	}
+>>>>>>> Kien
 }

@@ -1,0 +1,30 @@
+﻿using UnityEngine;
+using System.Collections;
+
+<<<<<<< HEAD:Assets/Scripts/Managers/MenuManager.cs
+public class MenuManager : MonoBehaviour {
+=======
+public class HealthBar : MonoBehaviour
+{
+
+	private float barValue;
+>>>>>>> Kien:Assets/Scripts/HealthBar.cs
+
+	public float BarValue {
+		get{ return  barValue; }
+		set {
+			barValue = value;
+			this.GetComponent<SpriteRenderer> ().material.SetFloat ("_Cutoff", 1 - barValue);
+		}
+	}
+<<<<<<< HEAD:Assets/Scripts/Managers/MenuManager.cs
+	
+	// Update is called once per frame
+	void Update () {
+	
+	}
+=======
+
+
+>>>>>>> Kien:Assets/Scripts/HealthBar.cs
+}

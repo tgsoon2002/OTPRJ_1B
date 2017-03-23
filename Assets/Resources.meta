@@ -1,7 +1,13 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: 3330d3903ed7c443cb89d521b172674e
 folderAsset: yes
 timeCreated: 1471937743
+=======
+guid: ea8e83950c9080142a92876d8b00a8b8
+folderAsset: yes
+timeCreated: 1470815902
+>>>>>>> Kien
 licenseType: Free
 DefaultImporter:
   userData: 

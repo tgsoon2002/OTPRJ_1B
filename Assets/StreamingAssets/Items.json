@@ -1,0 +1,28 @@
+[
+	{
+		"id": 0,
+		"name": "Foo Bar",
+		"value": 6,
+		"stats" : {
+			"power": 1,
+			"defence": 4,
+			"vitality": 2
+		},
+		"description": "This item is Foo Bar.  Yeah.",
+		"stackable": false,
+		"rarity": 2
+	},
+	{
+		"id": 1,
+		"name": "Bar Foo",
+		"value": 12,
+		"stats" : {
+			"power": 1,
+			"defence": 4,
+			"vitality": 2
+		},
+		"description": "This item is Bar Foo.  Yeah.",
+		"stackable": false,
+		"rarity": 2
+	}
+]

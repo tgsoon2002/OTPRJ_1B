@@ -8,11 +8,31 @@ public class ItemDatabase : MonoBehaviour
 {
     private List<Item> database = new List<Item>();
     private JsonData itemData;
+<<<<<<< HEAD
     	
     void Awake()
     {
         itemData = JsonMapper.ToObject(File.ReadAllText(Application.dataPath + 
             "/StreamingAssets/ItemDatabase.json"));
+=======
+
+	// Use this for initialization
+    /*
+	void Start () 
+    {
+        itemData = JsonMapper.ToObject(File.ReadAllText(Application.dataPath + 
+                                       "/StreamingAssets/Items.json"));
+        ConstructItemDatabase();
+
+        //Debug.Log(FetchItemByID(0).Description);
+	}
+    */   
+
+    void Awake()
+    {
+        itemData = JsonMapper.ToObject(File.ReadAllText(Application.dataPath + 
+            "/StreamingAssets/Items.json"));
+>>>>>>> Kien
         ConstructItemDatabase();
     }
 	
@@ -41,8 +61,12 @@ public class ItemDatabase : MonoBehaviour
         {
             database.Add(new Item((int)itemData[i]["id"], 
                          itemData[i]["name"].ToString(), 
+<<<<<<< HEAD
                          (int)itemData[i]["value"],
                          itemData[i]["image"].ToString(),
+=======
+                         (int)itemData[i]["value"], 
+>>>>>>> Kien
                          (int)itemData[i]["stats"]["power"],
                          (int)itemData[i]["stats"]["defence"], 
                          (int)itemData[i]["stats"]["vitality"],

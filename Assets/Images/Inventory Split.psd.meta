@@ -1,0 +1,129 @@
+fileFormatVersion: 2
+guid: e16b1e586f899f54d80cfbf06a1299f5
+timeCreated: 1470606916
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: Inventory Split_0
+    21300002: Inventory Split_1
+    21300004: Inventory Split_2
+    21300006: Inventory Split_3
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: Inventory Split_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2720
+        width: 1089
+        height: 160
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -387.5, y: 57.22229}
+        - {x: -387.5, y: -56.77771}
+        - {x: 387.5, y: -56.77771}
+        - {x: 387.5, y: 57.22229}
+    - name: Inventory Split_1
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2493
+        width: 219
+        height: 220
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -78, y: 79.80005}
+        - {x: -78, y: -78.19995}
+        - {x: 78, y: -78.19995}
+        - {x: 78, y: 79.80005}
+    - name: Inventory Split_2
+      rect:
+        serializedVersion: 2
+        x: 234
+        y: 2598
+        width: 117
+        height: 115
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -24.59999, y: 41.966675}
+        - {x: -41.59999, y: 25.966675}
+        - {x: -41.59999, y: -35.033325}
+        - {x: -28.59999, y: -41.033325}
+        - {x: 41.40001, y: -41.033325}
+        - {x: 42.40001, y: -40.033325}
+        - {x: 42.40001, y: 23.966675}
+        - {x: 32.40001, y: 41.966675}
+    - name: Inventory Split_3
+      rect:
+        serializedVersion: 2
+        x: 61
+        y: 477
+        width: 2053
+        height: 1926
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 730.8778, y: 684.2}
+        - {x: 729.8778, y: 685.2}
+        - {x: -729.1222, y: 685.2}
+        - {x: -730.1222, y: 684.2}
+        - {x: -730.1222, y: -683.8}
+        - {x: -729.1222, y: -684.8}
+        - {x: 729.8778, y: -684.8}
+        - {x: 730.8778, y: -683.8}
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
