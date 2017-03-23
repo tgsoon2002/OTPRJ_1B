@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Item 
+public class Item
 {
     public int _ItemID;
     public string _ItemTitle;
@@ -12,11 +12,9 @@ public class Item
     public string _Description;
     public bool _IsStackable;
     public int _Rarity;
-<<<<<<< HEAD
+
     public string _ItemSprite;
-=======
-    public Sprite _ItemSprite;
->>>>>>> Kien
+
 
     public int ID
     {
@@ -72,31 +70,25 @@ public class Item
         set { _Rarity = value; }
     }
 
-<<<<<<< HEAD
+
     public string ItemSprite
-=======
-    public Sprite ItemSprite
->>>>>>> Kien
+
     {
         get { return _ItemSprite; }
         set { _ItemSprite = value; }
     }
 
-<<<<<<< HEAD
-    public Item (int itemID, string itemName, int itemValue, string itemSprite,
-=======
-    public Item (int itemID, string itemName, int itemValue,
->>>>>>> Kien
+
+    public Item(int itemID, string itemName, int itemValue, string itemSprite,
                  int power, int defence, int vitality, string description,
                  bool isStackable, int rarity)
     {
         this._ItemID = itemID;
         this._ItemTitle = itemName;
         this._ItemValue = itemValue;
-<<<<<<< HEAD
+
         this._ItemSprite = itemSprite;
-=======
->>>>>>> Kien
+
         this._Power = power;
         this._Defence = defence;
         this._Vitality = vitality;
@@ -104,8 +96,8 @@ public class Item
         this._IsStackable = isStackable;
         this._Rarity = rarity;
     }
-        
-    public Item ()
+
+    public Item()
     {
         this._ItemID = -1;
     }

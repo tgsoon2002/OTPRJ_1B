@@ -1,11 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
-<<<<<<< HEAD
+
 using System.Collections.Generic;
 using LitJson;
 using System.IO;
 
-public class GlobalInventory : MonoBehaviour 
+public class GlobalInventory : MonoBehaviour
 {
     private List<GlobalItem> globalItemList = new List<GlobalItem>();
     // private List<GlobalItem> expeditionItemList = new List<GlobalItem>();
@@ -13,21 +13,21 @@ public class GlobalInventory : MonoBehaviour
 
     public List<GlobalItem> _GlobalItemList
     {
-        get{ return globalItemList; }
+        get { return globalItemList; }
 
     }
 
     void Awake()
     {
-        globalItemData = JsonMapper.ToObject(File.ReadAllText(Application.dataPath + 
+        globalItemData = JsonMapper.ToObject(File.ReadAllText(Application.dataPath +
             "/StreamingAssets/GlobalInventory.json"));
-        
+
         ConstructGlobalInventory();
         //Debug.Log(globalItemList.Count);
     }
 
     // Update is called once per frame
-    void Update () 
+    void Update()
     {
 
     }
@@ -49,22 +49,10 @@ public class GlobalInventory : MonoBehaviour
     {
         for (int i = 0; i < globalItemData.Count; i++)
         {
-            globalItemList.Add(new GlobalItem((int)globalItemData[i]["id"],                  
+            globalItemList.Add(new GlobalItem((int)globalItemData[i]["id"],
                 (int)globalItemData[i]["quantity"]));
         }
     }
-=======
-
-public class GlobalInventory : MonoBehaviour {
-
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
->>>>>>> Kien
 }
+
+

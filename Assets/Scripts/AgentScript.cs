@@ -16,7 +16,7 @@ public class AgentScript : MonoBehaviour {
     public string attackType; //range char might need to changed to melee depends on the design.
     public Vector3 initTarget;
     private bool outOfStamina;
-    private NavMeshAgent agent;
+    private UnityEngine.AI.NavMeshAgent agent;
     private Vector3 curpos;//position tracker
     public List<GameObject> enemyList;
     public float attackRange;
@@ -29,7 +29,7 @@ public class AgentScript : MonoBehaviour {
     {
         SIGHTLAYER = 1 << 31;
         SIGHTLAYER = ~SIGHTLAYER;
-        agent = GetComponent<NavMeshAgent>(); stamina = 200f;
+        agent = GetComponent<UnityEngine.AI.NavMeshAgent>(); stamina = 200f;
         staminaRegen = 8.5f;
         staminaCap = 300f;
         detectedPlayer = false;

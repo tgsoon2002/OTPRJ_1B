@@ -7,166 +7,166 @@ using System.Collections;
 /// </summary>
 public class OffensiveRangedProperty : MonoBehaviour
 {
-	#region Data Members
+    #region Data Members
 
-	private Collider objCollider;
-	private Rigidbody physics;
+    private Collider objCollider;
+    private Rigidbody physics;
 
-	[SerializeField]
-	private Vector3 direction;
-	private Vector3 initialPosition;
-	private float stayAliveDistance = 0.0f;
-	private float stayAliveTimer = 0.0f;
-	private float damageValue;
-	private float speedValue;
-	private bool timerTriggered = false;
-	private bool distanceTriggered = false;
+    [SerializeField]
+    private Vector3 direction;
+    private Vector3 initialPosition;
+    private float stayAliveDistance = 0.0f;
+    private float stayAliveTimer = 0.0f;
+    private float damageValue;
+    private float speedValue;
+    private bool timerTriggered = false;
+    private bool distanceTriggered = false;
 
-	#endregion
+    #endregion
 
-	#region Setters & Getters
+    #region Setters & Getters
 
-	/// <summary>
-	/// Gets the particle damage value.
-	/// </summary>
-	/// <value>The particle damage value.</value>
-	public float Particle_Damage_Value
-	{
-		get { return damageValue; }
-	}
+    /// <summary>
+    /// Gets the particle damage value.
+    /// </summary>
+    /// <value>The particle damage value.</value>
+    public float Particle_Damage_Value
+    {
+        get { return damageValue; }
+    }
 
-	#endregion
+    #endregion
 
-	#region Built-in Unity Methods
+    #region Built-in Unity Methods
 
-	//Using Awake() for initialization.
-	void Awake()
-	{
-		physics = GetComponent<Rigidbody>();
-		objCollider = GetComponent<Collider>();
-		//physics.freezeRotation = true;
-	}
+    //Using Awake() for initialization.
+    void Awake()
+    {
+        physics = GetComponent<Rigidbody>();
+        objCollider = GetComponent<Collider>();
+        //physics.freezeRotation = true;
+    }
 
-	void Update()
-	{
-		if(timerTriggered && stayAliveTimer <= 0)
-		{
-			Destroy(gameObject);
-		}
+    void Update()
+    {
+        if (timerTriggered && stayAliveTimer <= 0)
+        {
+            Destroy(gameObject);
+        }
 
-		if(distanceTriggered && Vector3.Distance(initialPosition, gameObject.transform.position) >= stayAliveDistance)
-		{
-			Destroy(gameObject);
-		}
-	}
-		
-	//When the projectile hits a collider that is
-	//non-Trigger type, destroy it.
-	void OnTriggerEnter(Collider col)
-	{
-		Debug.Log("Collided with: " + col.gameObject.name);
+        if (distanceTriggered && Vector3.Distance(initialPosition, gameObject.transform.position) >= stayAliveDistance)
+        {
+            Destroy(gameObject);
+        }
+    }
 
-		if(col.tag == "Enemy")
-		{
-			Destroy(gameObject);	
-		}
-	}
-		
-	#endregion
+    //When the projectile hits a collider that is
+    //non-Trigger type, destroy it.
+    void OnTriggerEnter(Collider col)
+    {
+        Debug.Log("Collided with: " + col.gameObject.name);
 
-	#region Public Methods
+        if (col.tag == "Enemy")
+        {
+            Destroy(gameObject);
+        }
+    }
 
-	#region Method: AddForceWithGivenDirectionOnProjectile & Overloads 
+    #endregion
 
-	/// <summary>
-	/// Initializes the projectile to go to a straight line. 
-	/// </summary>
-	/// <param name="dir">Dir.</param>
-	/// <param name="spd">Spd.</param>
-	public void AddForceWithGivenDirectionOnProjectile(Vector3 dir, float spd)
-	{
-		//Assign static values to distance and timer.
-		AddForceWithGivenDirectionOnProjectile(dir, spd, 0.0f, 5.0f);
-	}
+    #region Public Methods
 
-	/// <summary>
-	/// Initializes the projectile to go to a straight line.
-	/// </summary>
-	/// <param name="dir">Dir.</param>
-	/// <param name="spd">Spd.</param>
-	/// <param name="stayAliveDist">Stay alive dist.</param>
-	public void AddForceWithGivenDirectionOnProjectile(Vector3 dir, float spd, float stayAliveDist)
-	{
-		//Assign some static value for the timer.
-		AddForceWithGivenDirectionOnProjectile(dir, spd, stayAliveDist, 5.0f);
-	}
+    #region Method: AddForceWithGivenDirectionOnProjectile & Overloads 
 
-	/// <summary>
-	/// Initializes the projectile to go to a straight line.
-	/// </summary>
-	/// <param name="dir">Dir.</param>
-	/// <param name="spd">Spd.</param>
-	/// <param name="stayAliveDist">Stay alive dist.</param>
-	/// <param name="stayAliveTimer">Stay alive timer.</param>
-	public void AddForceWithGivenDirectionOnProjectile(Vector3 dir, float spd, float stayAliveDist, float _stayAliveTimer)
-	{
-		Vector3 normDir = Vector3.Normalize(dir);
+    /// <summary>
+    /// Initializes the projectile to go to a straight line. 
+    /// </summary>
+    /// <param name="dir">Dir.</param>
+    /// <param name="spd">Spd.</param>
+    public void AddForceWithGivenDirectionOnProjectile(Vector3 dir, float spd)
+    {
+        //Assign static values to distance and timer.
+        AddForceWithGivenDirectionOnProjectile(dir, spd, 0.0f, 5.0f);
+    }
 
-		stayAliveTimer = _stayAliveTimer;
-		stayAliveDistance = stayAliveDist;
-		initialPosition = gameObject.transform.position;
+    /// <summary>
+    /// Initializes the projectile to go to a straight line.
+    /// </summary>
+    /// <param name="dir">Dir.</param>
+    /// <param name="spd">Spd.</param>
+    /// <param name="stayAliveDist">Stay alive dist.</param>
+    public void AddForceWithGivenDirectionOnProjectile(Vector3 dir, float spd, float stayAliveDist)
+    {
+        //Assign some static value for the timer.
+        AddForceWithGivenDirectionOnProjectile(dir, spd, stayAliveDist, 5.0f);
+    }
 
-		if(stayAliveDist > 0.0f)
-		{
-			distanceTriggered = true;
-		}
+    /// <summary>
+    /// Initializes the projectile to go to a straight line.
+    /// </summary>
+    /// <param name="dir">Dir.</param>
+    /// <param name="spd">Spd.</param>
+    /// <param name="stayAliveDist">Stay alive dist.</param>
+    /// <param name="stayAliveTimer">Stay alive timer.</param>
+    public void AddForceWithGivenDirectionOnProjectile(Vector3 dir, float spd, float stayAliveDist, float _stayAliveTimer)
+    {
+        Vector3 normDir = Vector3.Normalize(dir);
 
-		if(stayAliveTimer > 0.0f)
-		{
-			timerTriggered = true;
-		}
+        stayAliveTimer = _stayAliveTimer;
+        stayAliveDistance = stayAliveDist;
+        initialPosition = gameObject.transform.position;
 
-		StartCoroutine(CountdownTimer());
-		StartCoroutine(AddForceAndDestroyOnSpecifiedParam(normDir, spd, stayAliveTimer));
-	}
-		
-	#endregion
+        if (stayAliveDist > 0.0f)
+        {
+            distanceTriggered = true;
+        }
 
-	#endregion
+        if (stayAliveTimer > 0.0f)
+        {
+            timerTriggered = true;
+        }
 
-	#region Private Methods
+        StartCoroutine(CountdownTimer());
+        StartCoroutine(AddForceAndDestroyOnSpecifiedParam(normDir, spd, stayAliveTimer));
+    }
 
-	/// <summary>
-	/// This coroutine shall continually add force
-	/// to the projectile so long as the timer does
-	/// not reach zero.
-	/// </summary>
-	/// <returns>The force and destroy on specified parameter.</returns>
-	/// <param name="dir">Dir.</param>
-	/// <param name="spd">Spd.</param>
-	/// <param name="stayAliveTimer">Stay alive timer.</param>
-	IEnumerator AddForceAndDestroyOnSpecifiedParam(Vector3 dir, float spd, float stayAliveTimer)
-	{
-		while(stayAliveTimer > 0)
-		{
-			physics.AddForce(dir * spd);
-			yield return null;
-		}
-	}
+    #endregion
 
-	/// <summary>
-	/// Coroutine used to act as a timer
-	/// before projectile is destroyed.
-	/// </summary>
-	/// <returns>The timer.</returns>
-	IEnumerator CountdownTimer()
-	{
-		while(stayAliveTimer > 0)
-		{
-			stayAliveTimer--;
-			yield return new WaitForSeconds(1.0f);
-		}
-	}
+    #endregion
 
-	#endregion
+    #region Private Methods
+
+    /// <summary>
+    /// This coroutine shall continually add force
+    /// to the projectile so long as the timer does
+    /// not reach zero.
+    /// </summary>
+    /// <returns>The force and destroy on specified parameter.</returns>
+    /// <param name="dir">Dir.</param>
+    /// <param name="spd">Spd.</param>
+    /// <param name="stayAliveTimer">Stay alive timer.</param>
+    IEnumerator AddForceAndDestroyOnSpecifiedParam(Vector3 dir, float spd, float stayAliveTimer)
+    {
+        while (stayAliveTimer > 0)
+        {
+            physics.AddForce(dir * spd);
+            yield return null;
+        }
+    }
+
+    /// <summary>
+    /// Coroutine used to act as a timer
+    /// before projectile is destroyed.
+    /// </summary>
+    /// <returns>The timer.</returns>
+    IEnumerator CountdownTimer()
+    {
+        while (stayAliveTimer > 0)
+        {
+            stayAliveTimer--;
+            yield return new WaitForSeconds(1.0f);
+        }
+    }
+
+    #endregion
 }

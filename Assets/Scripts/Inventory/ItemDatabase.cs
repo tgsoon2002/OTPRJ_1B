@@ -4,19 +4,13 @@ using System.Collections.Generic;
 using LitJson;
 using System.IO;
 
-public class ItemDatabase : MonoBehaviour 
+public class ItemDatabase : MonoBehaviour
 {
     private List<Item> database = new List<Item>();
     private JsonData itemData;
-<<<<<<< HEAD
-    	
-    void Awake()
-    {
-        itemData = JsonMapper.ToObject(File.ReadAllText(Application.dataPath + 
-            "/StreamingAssets/ItemDatabase.json"));
-=======
 
-	// Use this for initialization
+
+    // Use this for initialization
     /*
 	void Start () 
     {
@@ -26,21 +20,16 @@ public class ItemDatabase : MonoBehaviour
 
         //Debug.Log(FetchItemByID(0).Description);
 	}
-    */   
+    */
 
     void Awake()
     {
-        itemData = JsonMapper.ToObject(File.ReadAllText(Application.dataPath + 
-            "/StreamingAssets/Items.json"));
->>>>>>> Kien
+        itemData = JsonMapper.ToObject(File.ReadAllText(Application.dataPath +
+            "/StreamingAssets/ItemDatabase.json"));
         ConstructItemDatabase();
     }
-	
-	// Update is called once per frame
-	void Update () 
-    {
-	
-	}
+
+
 
     public Item FetchItemByID(int id)
     {
@@ -59,16 +48,13 @@ public class ItemDatabase : MonoBehaviour
     {
         for (int i = 0; i < itemData.Count; i++)
         {
-            database.Add(new Item((int)itemData[i]["id"], 
-                         itemData[i]["name"].ToString(), 
-<<<<<<< HEAD
+            database.Add(new Item((int)itemData[i]["id"],
+                         itemData[i]["name"].ToString(),
+
                          (int)itemData[i]["value"],
                          itemData[i]["image"].ToString(),
-=======
-                         (int)itemData[i]["value"], 
->>>>>>> Kien
                          (int)itemData[i]["stats"]["power"],
-                         (int)itemData[i]["stats"]["defence"], 
+                         (int)itemData[i]["stats"]["defence"],
                          (int)itemData[i]["stats"]["vitality"],
                          itemData[i]["description"].ToString(),
                          (bool)itemData[i]["stackable"],
